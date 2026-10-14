@@ -54,3 +54,52 @@
     display: none;
   }
 }
+
+span{color: #C43257;}
+ h1 {
+  font-family: 'Nunito', sans-serif;
+  font-size: 34px;
+  font-weight: 800;
+
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+
+.sidebar-logo{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 30px;
+  padding: 0 4px;
+}
+
+.sidebar-logo img {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+}
+
+
+ p {
+  font-size: 13px;
+  margin: 5px 0 0;
+}
+
+
+.sidebar-menu a {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.sidebar-menu img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+.sidebar-menu a:focus {
+  background-color: #11674f;
+  border-left: 4px solid #8fdb91;
+  border-radius: 10px;
+}
