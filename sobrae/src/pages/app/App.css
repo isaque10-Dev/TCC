@@ -9,17 +9,14 @@ body{
     margin: 0;
     font-family: arial, sans-serif;
 }
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
+
+
+
 
 
 .app-layout {
   display: flex;
-  min-height: 100vh;
+  min-height: 100v;
 }
 
 .app-principal {
@@ -31,18 +28,152 @@ textarea {
   padding: 20px;
 }
 
+.home h1 {
 
-
-.app-layout {
-  display: flex;
-  min-height: 100vh;
+  margin-bottom: 10px;
+  color: #299D64;
 }
 
-.app-principal {
+.home h2{
+  color: #04532d;
+
+}
+
+
+
+
+.home-banner {
+  position: absolute;
+  width: 60rem;
+  height: 100%;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+}
+
+.home-alimentos {
+  position: absolute;
+  width: 32%;
+  height: 90%;
+  left: 30rem;
+  right: 10px;
+  bottom: 0;
+  object-fit: contain;
+}
+
+.home-texto {
+  position: relative;
+  z-index: 1;
+  width: 60%;
+  height: 100%;
+  padding-left: 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
+.home-topo {
+  display: flex;
+  align-items: stretch;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+
+.home-topo {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+  align-items: stretch;
+  flex-wrap: wrap;
+}
+
+.home-pt1 {
+  position: relative;
+  flex: 1;
+  min-width: 500px;
+  height: 260px;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.como-funciona {
+  flex: 1;
+  min-width: 350px;
+  height: 260px;
+  padding: 15px;
+  border-radius: 15px;
+  background-color: #d5f8db;
+}
+
+.home-banner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+}
+
+.home-alimentos {
+  position: absolute;
+  width: 38%;
+  height: 90%;
+  right: 10px;
+  bottom: 0;
+  object-fit: contain;
+}
+
+
+.como-funciona h2 {
+  margin: 0;
+  font-size: 18px;
+  color: #064735;
+}
+
+
+
+.como-funciona {
+  display: flex;
+  flex-direction: column;
+}
+
+.como-funciona h2 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.passos {
+  display: flex;
+  gap: 8px;
+  flex: 1;
+}
+
+.passo {
+  position: relative;
   flex: 1;
   min-width: 0;
+  background-color: #299D64;
+  border-radius: 8px;
+  padding: 20px 4px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
 }
 
-.app-conteudo {
-  padding: 20px;
+
+.passo img {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+.passo p {
+  color: #eefffa;
+  font-size: 10px;
+  line-height: 1.3;
+  text-align: center;
 }

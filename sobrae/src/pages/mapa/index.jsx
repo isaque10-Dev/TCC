@@ -1,5 +1,5 @@
 
-
+import "./index.css";
 
 function Mapa() {
   return (

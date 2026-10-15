@@ -1,5 +1,5 @@
 
-
+import "./index.css";
 
 function Perfil() {
   return (

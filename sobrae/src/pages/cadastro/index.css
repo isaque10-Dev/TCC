@@ -1,0 +1,140 @@
+
+.cadastro {
+  display: flex;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.cadastro-esquerda {
+  width: 50%;
+  background-color: #064735;
+  color: white;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+.cadastro-esquerda .logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.cadastro-esquerda .logo img {
+  width: 110px;
+  height: auto;
+}
+
+.cadastro-esquerda .logo h2 {
+  font-size: 36px;
+}
+
+.cadastro-esquerda h1 {
+  font-size: 32px;
+}
+
+.cadastro-esquerda p {
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.cadastro-direita {
+  width: 50%;
+  background-color: #f5efe5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.formulario {
+  width: 100%;
+  max-width: 450px;
+}
+
+.formulario h1 {
+  color: #064735;
+  margin-bottom: 10px;
+}
+
+.formulario p {
+  color: #66736b;
+  margin-bottom: 20px;
+}
+
+.tipos {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tipos button {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #064735;
+  border-radius: 8px;
+  background-color: white;
+  color: #064735;
+  cursor: pointer;
+}
+
+.tipos .selecionado {
+  background-color: #064735;
+  color: white;
+}
+
+.formulario form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formulario label {
+  color: #064735;
+  font-weight: bold;
+}
+
+.formulario input {
+  padding: 13px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+.formulario .criar {
+  background-color: #064735;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px;
+  margin-top: 12px;
+  cursor: pointer;
+}
+
+.formulario .criar:hover {
+  background-color: #11674f;
+}
+
+.formulario .voltar {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.formulario .voltar a {
+  color: #16835b;
+  text-decoration: none;
+}
+
+@media (max-width: 767px) {
+  .cadastro {
+    flex-direction: column;
+  }
+
+  .cadastro-esquerda,
+  .cadastro-direita {
+    width: 100%;
+    padding: 30px;
+  }
+}

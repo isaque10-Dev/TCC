@@ -66,21 +66,20 @@ span{color: #C43257;}
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
 
 
-.sidebar-logo{
+.sidebar-logo {
   display: flex;
   align-items: center;
-  gap: 14px;
-  margin-bottom: 30px;
-  padding: 0 4px;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 20px 15px;
 }
 
 .sidebar-logo img {
-  width: 76px;
-  height: 76px;
-  border-radius: 50%;
+  width: 85px;
+  height: 85px;
+  object-fit: contain;
+  flex-shrink: 0;
 }
-
-
  p {
   font-size: 13px;
   margin: 5px 0 0;

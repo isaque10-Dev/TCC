@@ -1,0 +1,130 @@
+
+.login {
+  display: flex;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.login-esquerda {
+  border-radius: 0 20px 20px 0;
+  box-shadow: 0 4px 6px 0 rgb(11, 54, 26);
+  width: 50%;
+  background-color: #064735;
+  color: white;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.login-esquerda img {
+  width: 160px;
+  height: auto;
+  object-fit: contain;
+}
+
+.login-esquerda h1 {
+  font-size: 36px;
+  max-width: 420px;
+}
+
+.login-esquerda p {
+  font-size: 17px;
+  line-height: 1.6;
+  max-width: 420px;
+}
+
+.login-direita {
+  width: 50%;
+  background-color: #f5efe5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+.login-caixa {
+  width: 100%;
+  max-width: 450px;
+}
+
+.login-caixa h1 {
+  color: #064735;
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.login-caixa p {
+  color: #66736b;
+  margin-bottom: 25px;
+}
+
+.login-caixa form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-caixa label {
+  color: #064735;
+  font-weight: bold;
+}
+
+.login-caixa input {
+  padding: 16px;
+  border: 1px solid #cccccc;
+  border-radius: 8px;
+  font-size: 16px;
+  background-color: white;
+}
+
+.login-caixa a {
+  color: #16835b;
+  text-decoration: none;
+}
+
+.login-caixa form a {
+  text-align: right;
+  font-size: 13px;
+}
+
+.login-caixa button {
+  background-color: #064735;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+
+}
+
+.login-caixa button:hover {
+  background-color: #11674f;
+}
+
+.login-caixa > p {
+  text-align: center;
+  margin-top: 25px;
+}
+
+
+.login-logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.login-logo img {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+}
+
+.login-logo h2 {
+  font-size: 36px;
+  color: white;
+  margin: 0;
+}

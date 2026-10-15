@@ -1,0 +1,85 @@
+
+.naoencontrado{
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5efe5, #e9f0e7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+.erro {
+  width: 100%;
+  max-width: 550px;
+  padding: 45px 35px;
+  background-color: #fffdf9;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 12px 35px rgba(6, 71, 53, 0.1);
+  border: 1px solid #e2e9df;
+}
+
+.erro img {
+  width: 85px;
+  height: 85px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+
+.erro h1 {
+  font-size: 110px;
+  font-weight: 800;
+  color: #064735;
+  line-height: 1;
+  margin: 0;
+}
+
+.erro h2 {
+  font-size: 25px;
+  color: #064735;
+  margin: 20px 0 15px;
+}
+
+.erro p {
+  font-size: 16px;
+  color: #68766e;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.erro .voltar {
+  display: inline-block;
+  background-color: #064735;
+  color: white;
+  padding: 14px 30px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.erro .voltar:hover {
+  background-color: #11674f;
+  transform: translateY(-3px);
+}
+
+@media (max-width: 600px) {
+  .erro {
+    padding: 35px 20px;
+  }
+
+  .erro h1 {
+    font-size: 80px;
+  }
+
+  .erro h2 {
+    font-size: 21px;
+  }
+
+  .erro p {
+    font-size: 14px;
+  }
+}

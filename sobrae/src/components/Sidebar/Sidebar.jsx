@@ -8,10 +8,10 @@ function Sidebar() {
     <section className="sidebar">
       
 <div className="sidebar-logo">
-  <img src="/assets/images/logo.png" alt="Logo Sobraê" />
+  <img src="/assets/images/logo.png" alt="Sobraê" />
 
-  <div className="sidebar-logo-texto">
-    <h1>Sobra<span>ê</span></h1>
+  <div>
+    <h1>Sobraê</h1>
     <p>Painel do usuário</p>
   </div>
 </div>

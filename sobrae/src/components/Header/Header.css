@@ -81,3 +81,27 @@
 }
 
 
+.entrar-login {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: #064735;
+  cursor: pointer;
+}
+
+.entrar-login img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.entrar-login p {
+  font-size: 12px;
+  color: #c23560;
+  margin-top: 4px;
+}
+
+.entrar-login:hover {
+  opacity: 0.8;
+}
