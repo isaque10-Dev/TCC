@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import "./index.css";
 
-function NotFound() {
+export default function NotFound() {
   return (
     <div className="naoencontrado">
       <div className="erro">
@@ -24,4 +24,4 @@ function NotFound() {
   );
 }
 
-export default NotFound;
+

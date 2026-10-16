@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import "./Login.css";
 
-function Login() {
+export default function Login() {
   return (
     <div className="login">
       <div className="login-esquerda">
@@ -28,15 +28,11 @@ function Login() {
             <label>E-mail</label>
             <input
               type="email"
-              placeholder="Digite seu e-mail"
-              required
+              placeholder="Digite seu e-mail"required
             />
 
             <label>Senha</label>
-            <input
-              type="password"
-              placeholder="Digite sua senha"
-              required
+            <input type="password"placeholder="Digite sua senha"required
             />
 
             <a href="#recuperar">Esqueceu sua senha?</a>
@@ -54,4 +50,4 @@ function Login() {
   );
 }
 
-export default Login;
+

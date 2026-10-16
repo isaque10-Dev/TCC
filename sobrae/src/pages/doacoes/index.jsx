@@ -1,6 +1,6 @@
 import "./index.css";
 
-function Doacoes() {
+export default function Doacoes() {
   return (
     <div>
       <h1>Doações</h1>
@@ -9,4 +9,3 @@ function Doacoes() {
   );
 }
 
-export default Doacoes;

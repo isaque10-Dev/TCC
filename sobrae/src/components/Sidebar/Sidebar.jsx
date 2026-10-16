@@ -11,7 +11,7 @@ function Sidebar() {
   <img src="/assets/images/logo.png" alt="Sobraê" />
 
   <div>
-    <h1>Sobraê</h1>
+    <h1>Sobra<span>ê</span></h1>
     <p>Painel do usuário</p>
   </div>
 </div>
