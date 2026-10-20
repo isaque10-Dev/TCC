@@ -42,14 +42,7 @@ body{
 
 
 
-.home-banner {
-  position: absolute;
-  width: 60rem;
-  height: 100%;
-  top: 0;
-  left: 0;
-  object-fit: cover;
-}
+
 
 .home-alimentos {
   position: absolute;
