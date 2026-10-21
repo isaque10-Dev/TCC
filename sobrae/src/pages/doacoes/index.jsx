@@ -6,36 +6,23 @@ export default function Doacoes() {
   const [categoria, setCategoria] = useState("Todos");
   const [abrir, setAbrir] = useState(false);
 
+
+
   let janela = null;
 
   if (abrir === true) {
     janela = (
-      <div
-        className="fundo-modal"
-        onClick={() => setAbrir(false)}
-      >
-        <div
-          className="modal"
-          onClick={(e) => e.stopPropagation()}
-        >
+      <div className="fundo-modal" onClick={() => setAbrir(false)} >
+        <div className="modal"onClick={(e) => e.stopPropagation()}>
           <div className="modal-topo">
             <h2>Nova doação</h2>
 
-            <button
-              type="button"
-              className="fechar"
-              onClick={() => setAbrir(false)}
-            >
-              X
-            </button>
+            <button type="button"className="fechar"onClick={() => setAbrir(false)}>  X  </button>
           </div>
 
           <form onSubmit={(e) => e.preventDefault()}>
             <label>Nome do alimento</label>
-            <input
-              type="text"
-              placeholder="Ex: Arroz"
-              required
+            <input type="text" placeholder="Ex: Arroz" required
             />
 
             <label>Categoria</label>
@@ -50,11 +37,7 @@ export default function Doacoes() {
             </select>
 
             <label>Quantidade</label>
-            <input
-              type="text"
-              placeholder="Ex: 5 kg"
-              required
-            />
+            <input   type="text"  placeholder="Ex: 5 kg" required />
 
             <label>Data de validade</label>
             <input type="date" required />
@@ -67,38 +50,29 @@ export default function Doacoes() {
             />
 
             <div className="acoes">
-              <button
-                type="button"
-                className="cancelar"
-                onClick={() => setAbrir(false)}
-              >
-                Cancelar
-              </button>
+              <button  type="button" className="cancelar" onClick={() => setAbrir(false)} >  Cancelar  </button>
 
-              <button type="submit" className="salvar">
-                Publicar
-              </button>
-            </div>
-          </form>
+      <button type="submit" className="salvar">      Publica        </button>
         </div>
+    </form>
+      </div>
       </div>
     );
   }
 
-
-
-
-
-  
   return (
     <div className="doe">
+
+  
+
       <div className="doe-topo">
+
+ 
+
         <div className="topo-pt1">
-          <img
-            className="baner"
-            src="/assets/images/baner.png"
-            alt="Banner"
-          />
+         <img className="baner" src="/assets/images/baner.png" alt="Banner"/>
+
+          <img className="comida" src="/assets/images/alimentos.png" alt="Cesta de alimentos" />
 
           <div className="bannerMais">
             <h1 className="titu">DOAÇÕES</h1>
@@ -115,19 +89,8 @@ export default function Doacoes() {
             />
 
             <div className="botao">
-              <button
-                className={`butao ${categoria === "Todos" ? "ativo" : ""}`}
-                onClick={() => setCategoria("Todos")}
-              >
-                Todos
-              </button>
-
-              <button
-                className={`butao ${categoria === "Frutas e verduras" ? "ativo" : ""}`}
-                onClick={() => setCategoria("Frutas e verduras")}
-              >
-                Frutas e verduras
-              </button>
+              <button className={`butao ${categoria === "Todos" ? "ativo" : ""}`}  onClick={() => setCategoria("Todos")}>Todos </button>
+              <button className={`butao ${categoria === "Frutas e verduras" ? "ativo" : ""}`} onClick={() => setCategoria("Frutas e verduras")} >  Frutas e verduras </button>
 
               <button
                 className={`butao ${categoria === "Pães" ? "ativo" : ""}`}
@@ -152,6 +115,8 @@ export default function Doacoes() {
             </div>
           </div>
         </div>
+
+
 
         <div className="insc">
           <div>
@@ -181,7 +146,111 @@ export default function Doacoes() {
         </div>
       </div>
 
+  
+      <div className="disponiveis">
+        <h2>Doações disponíveis</h2>
+
+        <div className="cards">
+   
+
+          {(categoria === "Todos" || categoria === "Frutas e verduras") ? (
+            <div className="card">
+              <img
+                src="/assets/images/frutas.png"
+                alt="Frutas e verduras"
+              />
+
+<div className="dados">
+                <h3>Cesta de frutas e verduras</h3>
+
+<p>Mercado Boa Compra</p>
+                <p>Quantidade: 3 cestas</p>
+                <p>Validade: 2 dias</p>
+           <span className="status">Disponível</span>
+              <div className="acoes-card">
+          <button className="detalhes">
+                  Ver detalhes
+              </button>
+                  <button className="reservar">
+                    Reservar doação
+           </button>          </div>
+         </div>
+</div>
+          ) : null}
+
+
+
+          {(categoria === "Todos" || categoria === "Pães") ? (
+           <div className="card">
+              <img
+                src="/assets/images/paes.png"
+                alt="Pães"
+/>
+
+              <div className="dados">
+<h3>Pães do dia</h3>
+                <p>Padaria Pão Quentinho</p>
+                <p>Quantidade: 8 sacos</p>
+                <p>Validade: 1 dia</p>
+              <span className="status">Disponível</span>
+                <div className="acoes-card">
+<button className="detalhes">
+            Ver detalhes
+                </button>
+
+                  <button className="reservar">
+                  Reservar doação
+                  </button>
+              </div>
+              </div>
+            </div>
+) : null}
+
+
+
+          {(categoria === "Todos" || categoria === "Refeições") ? (
+<div className="card">
+              <img
+                src="/assets/images/refeicoes.png"
+alt="Refeições"
+              />
+              <div className="dados">
+<h3>Marmitas para almoço</h3>
+
+                <p>Restaurante Sabor & Arte</p>
+<p>Quantidade: 10 unidades</p>
+                <p>Validade: Hoje</p>
+
+                <span className="status reservado">
+                  Reservado
+                </span>
+
+                <div className="acoes-card">
+<button className="detalhes">
+                    Ver detalhes
+                  </button>
+<button className="reservar" disabled>
+                    Reservado
+</button>
+                </div>
+              </div>
+            </div>
+          ) : null}
+
+        </div>
+
+       
+
+        {categoria === "Outro" ? (
+          <p>Nenhuma doação encontrada nesta categoria.</p>
+        ) : null}
+
+      </div>
+
+  
+
       {janela}
+
     </div>
   );
 }
