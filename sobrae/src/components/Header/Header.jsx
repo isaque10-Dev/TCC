@@ -16,6 +16,13 @@ function Header() {
         />
       </div>
 
+      <div className="Config">
+        <Link to='/configuracoes' className="header-config">
+        <img src="./assets/images/icons/configVerde.png" alt="Configuracoes"/>
+        
+        </Link>
+      </div>
+
       <div className="header-direita">
         <Link to="/notificacoes" className="header-notificacoes">
           <img

@@ -53,7 +53,17 @@
   height: 26px;
 }
 
+.header-config {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
 
+.header-config img {
+  width: 26px;
+  height: 26px;
+
+}
 
 .header-perfil {
   display: flex;
@@ -105,3 +115,4 @@
 .entrar-login:hover {
   opacity: 0.8;
 }
+

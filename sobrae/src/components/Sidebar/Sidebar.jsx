@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import "./Sidebar.css";
 
 function Sidebar() {
+
+
+  
   return (
     <section className="sidebar">
       
@@ -38,15 +41,8 @@ function Sidebar() {
     Perfil
   </Link>
 
-  <Link to="/notificacoes">
-    <img src="/assets/images/icons/notific.png" alt="" />
-    Notificações
-  </Link>
 
-  <Link to="/configuracoes">
-    <img src="/assets/images/icons/config.png" alt="" />
-    Configurações
-  </Link>
+ 
 </nav>
 
       <p className="sidebar-footer">

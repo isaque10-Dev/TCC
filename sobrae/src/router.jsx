@@ -9,6 +9,7 @@ import Perfil from "./pages/perfil/index";
 import Login from "./pages/login/index.jsx";
 import Cadastro from "./pages/cadastro/index.jsx";
 import Error from "./pages/error/index.jsx";
+import Config from "./pages/Configuração/index.jsx";
 
 export default function Router() {
   return (
@@ -20,6 +21,7 @@ export default function Router() {
 
 
 
+
   
   <Route element={<Layout />}>
   
@@ -27,6 +29,7 @@ export default function Router() {
     <Route path="/mapa" element={<Mapa />} />
     <Route path="/doacoes" element={<Doacoes />} />
     <Route path="/perfil" element={<Perfil />} />
+    <Route path="/configuracoes" element={<Config />} />
   </Route>
 </Routes>
     </BrowserRouter>
