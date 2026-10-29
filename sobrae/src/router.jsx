@@ -4,12 +4,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import App from "./pages/app/App";
 import Doacoes from "./pages/doacoes/index";
-import Mapa from "./pages/mapa/index";
+import Atividades from "./pages/atividades/index";
 import Perfil from "./pages/perfil/index";
 import Login from "./pages/login/index.jsx";
 import Cadastro from "./pages/cadastro/index.jsx";
 import Error from "./pages/error/index.jsx";
-import Config from "./pages/Configuração/index.jsx";
 
 export default function Router() {
   return (
@@ -26,10 +25,9 @@ export default function Router() {
   <Route element={<Layout />}>
   
     <Route path="/" element={<App />} />
-    <Route path="/mapa" element={<Mapa />} />
+    <Route path="/atividades" element={<Atividades />} />
     <Route path="/doacoes" element={<Doacoes />} />
     <Route path="/perfil" element={<Perfil />} />
-    <Route path="/configuracoes" element={<Config />} />
   </Route>
 </Routes>
     </BrowserRouter>

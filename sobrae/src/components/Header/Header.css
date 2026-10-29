@@ -11,7 +11,7 @@
 }
 
 .header-pesquisa {
-  width: 560px;
+  width: 850px;
   max-width: 60%;
   height: 48px;
   border: 1px solid #d6d6d0;
@@ -29,7 +29,7 @@
 }
 
 .header-pesquisa input {
-  width: 100%;
+  width: 100rem;
   border: none;
   outline: none;
   background: transparent;
@@ -116,3 +116,129 @@
   opacity: 0.8;
 }
 
+
+
+
+
+
+
+.config {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.config img {
+  width: 25px;
+  height: 25px;
+}
+
+
+.fundo-config {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+
+
+.modal-config {
+  background: #fffdf8;
+  width: 420px;
+  max-width: 90%;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 25px;
+  border-radius: 15px;
+  box-sizing: border-box;
+}
+
+.config-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.config-topo h2 {
+  color: #064735;
+  margin: 0;
+}
+
+.fechar-config {
+  background: none;
+  border: none;
+  color: #064735;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+
+
+.modal-config h3 {
+  color: #064735;
+  font-size: 15px;
+  margin: 20px 0 10px;
+}
+
+.opcao {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 14px;
+  margin-bottom: 10px;
+  border: 1px solid #dce5dd;
+  border-radius: 10px;
+}
+
+.opcao label,
+.opcao span {
+  color: #335e51;
+  font-size: 14px;
+}
+
+.opcao input {
+  width: 18px;
+  height: 18px;
+  accent-color: #064735;
+  cursor: pointer;
+}
+
+.opcao select {
+  padding: 8px;
+  border: 1px solid #cddbd0;
+  border-radius: 8px;
+}
+
+.alterar {
+  background: #e7ede8;
+  color: #064735;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.sair {
+  width: 100%;
+  background: #ac124b;
+  color: white;
+  padding: 13px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.sair:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

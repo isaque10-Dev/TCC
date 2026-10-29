@@ -26,9 +26,9 @@ function Sidebar() {
     Início
   </Link>
 
-  <Link to="/mapa">
-    <img src="/assets/images/icons/mapa.png" alt="" />
-    Mapa
+  <Link to="/atividades">
+    <img src="/assets/images/icons/ativi.png" alt="" />
+    Minhas Atividades
   </Link>
 
   <Link to="/doacoes">
