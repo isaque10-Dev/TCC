@@ -1,5 +1,7 @@
 
 .header {
+  position: sticky;
+  top: 0;
   height: 86px;
   padding: 0 30px;
   display: flex;

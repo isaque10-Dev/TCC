@@ -14,9 +14,12 @@ body{
 
 
 
+
 .app-layout {
   display: flex;
-  min-height: 100v;
+  align-items: flex-start;
+  min-height: 100vh;
+  width: 100%;
 }
 
 .app-principal {
@@ -26,7 +29,9 @@ body{
 
 .app-conteudo {
   padding: 20px;
+  min-width: 0;
 }
+
 
 .home h1 {
 
@@ -410,3 +415,4 @@ body{
     flex-direction: column;
   }
 }
+
