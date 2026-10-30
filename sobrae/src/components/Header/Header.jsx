@@ -8,13 +8,73 @@ function Header() {
 
 
 const [abrir, setAbrir] = useState(false);
-const [escuro, setEscuro] = useState(false);
-const [compacto, setCompacto] = useState(false);
+
 const [localizacao, setLocalizacao] = useState(false);
 const [distancia, setDistancia] = useState("10");
 
 
 
+
+const [abrirAvisos, setAbrirAvisos] = useState(false);
+const [avisos, setAvisos] = useState([]);
+
+function mostrarAvisos() {
+  const salvos = JSON.parse(
+    localStorage.getItem("avisosSobrae") || "[]"
+  );
+
+  setAvisos(salvos);
+  setAbrirAvisos(true);
+}
+
+function limparAvisos() {
+  localStorage.removeItem("avisosSobrae");
+  setAvisos([]);
+}
+
+let janelaAvisos = null;
+
+if (abrirAvisos === true) {
+  janelaAvisos = (
+    <div
+      className="notificacoes-fundo"
+      onClick={() => setAbrirAvisos(false)}
+    >
+      <div
+        className="notificacoes-modal"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="notificacoes-topo">
+          <h2>Notificações</h2>
+
+          <button onClick={() => setAbrirAvisos(false)}>
+            X
+          </button>
+        </div>
+
+        {avisos.length === 0 ? (
+          <p>Você não tem notificações no momento.</p>
+        ) : (
+          <div className="notificacoes-lista">
+            {avisos.map((aviso, i) => (
+              <div className="notificacao" key={i}>
+                <span>🔔</span>
+                <p>{aviso}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <button
+          className="limpar-avisos"
+          onClick={limparAvisos}
+        >
+          Limpar notificações
+        </button>
+      </div>
+    </div>
+  );
+}
 
 
 
@@ -118,12 +178,18 @@ onChange={(e) => setDistancia(e.target.value)}
 </button>
 
       <div className="header-direita">
-        <Link to="/notificacoes" className="header-notificacoes">
-          <img
-            src="/assets/images/icons/notific2.png"
-            alt="Notificações"
-          />
-        </Link>
+       
+<button
+  type="button"
+  className="header-notificacoes"
+  onClick={mostrarAvisos}
+>
+  <img
+    src="/assets/images/icons/notific2.png"
+    alt="Notificações"
+  />
+</button>
+
 
 <Link to="/login" className="entrar-login">
   <img src="/assets/images/icons/perfil.png" alt="" />
@@ -141,6 +207,8 @@ onChange={(e) => setDistancia(e.target.value)}
         </Link>
       </div>
       {janela}
+
+      {janelaAvisos}
     </header>
   );
 }

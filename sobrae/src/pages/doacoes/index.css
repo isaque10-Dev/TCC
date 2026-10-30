@@ -1,5 +1,5 @@
 
-
+/* PAGINA DOACOES */
 
 .doe {
   width: 100%;
@@ -10,8 +10,6 @@
   gap: 20px;
   margin-top: 20px;
 }
-
-
 
 .topo-pt1 {
   position: relative;
@@ -67,8 +65,8 @@
   padding: 0 15px;
   border: none;
   border-radius: 20px;
+  box-sizing: border-box;
 }
-
 
 .botao {
   display: flex;
@@ -93,7 +91,7 @@
   color: white;
 }
 
-
+/* POSTAR DOACAO */
 
 .insc {
   flex: 1;
@@ -143,7 +141,7 @@
   cursor: pointer;
 }
 
-
+/* MODAL NOVA DOACAO */
 
 .fundo-modal {
   position: fixed;
@@ -151,12 +149,14 @@
   background: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(5px);
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   z-index: 1000;
 }
 
-.modal {
+.modal-doacao {
+  display: block;
+  position: relative;
   width: 450px;
   max-width: 90%;
   max-height: 85vh;
@@ -167,52 +167,59 @@
   box-sizing: border-box;
 }
 
-.modal-topo {
+.modal-doacao-topo {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
 }
 
-.modal-topo h2 {
+.modal-doacao-topo h2 {
   color: #064735;
   margin: 0;
+  font-size: 23px;
 }
 
 .fechar {
   border: none;
-  background: none;
+  background: transparent;
   color: #064735;
   font-size: 25px;
   cursor: pointer;
 }
 
-.modal form {
+.modal-doacao form {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
 }
 
-.modal label {
+.modal-doacao label {
+  display: block;
   color: #064735;
   font-size: 14px;
 }
 
-.modal input,
-.modal select {
+.modal-doacao input,
+.modal-doacao select {
+  display: block;
+  width: 100%;
   padding: 12px;
   border: 1px solid #cddbd0;
   border-radius: 9px;
   font-size: 14px;
+  box-sizing: border-box;
+  background: white;
 }
 
-.acoes {
+.modal-doacao .acoes {
   display: flex;
   gap: 12px;
   margin-top: 15px;
 }
 
-.acoes button {
+.modal-doacao .acoes button {
   flex: 1;
   padding: 12px;
   border: none;
@@ -220,27 +227,17 @@
   cursor: pointer;
 }
 
-.cancelar {
+.modal-doacao .cancelar {
   background: #e7ede8;
   color: #064735;
 }
 
-.salvar {
+.modal-doacao .salvar {
   background: #ac124b;
   color: white;
-  border: none;
-  padding: 12px;
-  border-radius: 9px;
-  cursor: pointer;
 }
 
-.foto-detalhes {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 10px;
-}
-
+/* DOACOES DISPONIVEIS */
 
 .disponiveis {
   margin-top: 30px;
@@ -306,7 +303,6 @@
   color: #a46c00;
 }
 
-
 .acoes-card {
   display: flex;
   gap: 8px;
@@ -336,7 +332,92 @@
   cursor: not-allowed;
 }
 
+.foto-detalhes {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+}
 
+/* MODAL DE RESERVA */
+
+.fundo-reserva {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-reserva {
+  background: #fffdf8;
+  width: 420px;
+  max-width: 90%;
+  padding: 25px;
+  border-radius: 15px;
+  box-sizing: border-box;
+}
+
+.reserva-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.reserva-topo h2 {
+  color: #064735;
+  margin: 0;
+}
+
+.reserva-topo button {
+  border: none;
+  background: none;
+  color: #064735;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.modal-reserva h3 {
+  color: #064735;
+  margin-bottom: 12px;
+}
+
+.modal-reserva p {
+  color: #60766c;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+
+.reserva-botoes {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.reserva-botoes button {
+  flex: 1;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.cancelar-reserva {
+  background: #e7ede8;
+  color: #064735;
+}
+
+.confirmar-reserva {
+  background: #ac124b;
+  color: white;
+}
+
+/* RESPONSIVIDADE */
 
 @media (max-width: 1100px) {
   .doe-topo {
@@ -360,5 +441,9 @@
   .comida {
     width: 180px;
     right: 0;
+  }
+
+  .modal-doacao {
+    padding: 20px;
   }
 }

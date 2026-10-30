@@ -108,3 +108,68 @@
     flex-wrap: wrap;
   }
 }
+
+.gerenciar-fundo {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.gerenciar-modal {
+  width: 400px;
+  max-width: 90%;
+  background: #fffdf8;
+  padding: 25px;
+  border-radius: 15px;
+  box-sizing: border-box;
+}
+
+.gerenciar-modal h2 {
+  color: #064735;
+  margin-bottom: 20px;
+}
+
+.gerenciar-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.gerenciar-modal label {
+  color: #064735;
+  font-size: 14px;
+}
+
+.gerenciar-modal input {
+  padding: 12px;
+  border: 1px solid #cddbd0;
+  border-radius: 9px;
+}
+
+.gerenciar-botoes {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.gerenciar-botoes button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.gerenciar-botoes button:last-child {
+  background: #ac124b;
+  color: white;
+}
+
+.lista-atividades .item button {
+  margin-right: 10px;
+}
