@@ -7,12 +7,57 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 30px;
+
   border-bottom: 1px solid #e0e0d8;
   background-color: #f5f2e8;
+
+  display: flex;
+  align-items: center;
+  gap: 30px;
+
 }
 
+
+
+@media (max-width: 1100px) {
+  .header {
+    gap: 15px;
+  }
+
+  .header-direita {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 850px) {
+  .entrar-login > div,
+  .header-usuario {
+    display: none;
+  }
+
+  .header-direita {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 550px) {
+  .header {
+    gap: 10px;
+  }
+
+  .header-pesquisa {
+    max-width: 160px;
+  }
+
+  .header-direita {
+    gap: 10px;
+  }
+}
+
+
 .header-pesquisa {
+   flex: 1;
+  min-width: 0;
   width: 850px;
   max-width: 60%;
   height: 48px;
@@ -31,6 +76,9 @@
 }
 
 .header-pesquisa input {
+
+  min-width: 0;
+  box-sizing: border-box;
   width: 100rem;
   border: none;
   outline: none;
@@ -41,7 +89,8 @@
 .header-direita {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 25px;
+  flex-shrink: 0;
 }
 
 .header-notificacoes {
@@ -59,6 +108,15 @@
   position: relative;
   display: flex;
   align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
 .header-config img {
@@ -133,6 +191,8 @@
 .config img {
   width: 25px;
   height: 25px;
+  object-fit: contain;
+ 
 }
 
 
@@ -352,4 +412,227 @@ button.header-notificacoes img {
   height: 25px;
   object-fit: contain;
   display: block;
+}
+
+
+
+.header-compartilhar {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-compartilhar img {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+
+.fundo-compartilhar {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 3000;
+}
+
+
+.modal-compartilhar {
+  width: 500px;
+  max-width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 22px;
+  border-radius: 25px;
+  background: linear-gradient(#79f5b0, #39956d);
+  box-sizing: border-box;
+}
+
+
+
+.compartilhar-branco {
+  background: white;
+  border-radius: 30px;
+  padding: 25px;
+}
+
+.compartilhar-topo {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.compartilhar-topo h2 {
+  font-size: 32px;
+  color: #064735;
+  margin: 0;
+}
+
+.compartilhar-topo p {
+  font-size: 14px;
+  color: #929292;
+}
+
+.compartilhar-topo button {
+  width: 35px;
+  height: 35px;
+  border: none;
+  border-radius: 50%;
+  background: #d7fae9;
+  color: #064735;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+
+.compartilhar-alimento {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #d7fae9;
+  padding: 15px;
+  border-radius: 20px;
+}
+
+.compartilhar-alimento img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.compartilhar-alimento h3 {
+  color: #064735;
+  font-size: 21px;
+  margin: 0;
+}
+
+.compartilhar-alimento p {
+  color: #888;
+  font-size: 13px;
+  margin: 7px 0;
+}
+
+.compartilhar-alimento span {
+  background: #9af4c7;
+  color: #064735;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+
+.compartilhar-titulo {
+  color: #064735;
+  font-size: 25px;
+  margin: 25px 0 5px;
+}
+
+.compartilhar-descricao {
+  color: #929292;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+
+
+.compartilhar-redes {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.botaodoa{
+ border-style: none;
+}
+
+.compartilhar-redes button {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  color: #064735;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.compartilhar-redes span {
+  width: 90px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  font-size: 30px;
+}
+
+.rede-whatsapp {
+  background: #35c66b;
+  color: white;
+}
+
+.rede-instagram {
+  background: linear-gradient(45deg, #854fcf, #e83e72);
+  color: white;
+}
+
+.rede-copiar,
+.rede-mais {
+  background: #d7fae9;
+  color: #064735;
+}
+
+
+
+@media (max-width: 550px) {
+  .compartilhar-branco {
+    padding: 15px;
+  }
+
+  .compartilhar-alimento img {
+    width: 75px;
+    height: 75px;
+  }
+
+  .compartilhar-redes span {
+    width: 45px;
+    height: 45px;
+  }
+
+  .compartilhar-topo h2 {
+    font-size: 25px;
+  }
+}
+
+
+
+
+.compartilhar-redes span img {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+
+.rede-whatsapp {
+  background: #35c66b;
+  border-radius: 18px;
+}
+
+.rede-instagram {
+  background: linear-gradient(45 deg, #854fcf, #e83e72);
+  border-radius: 18px;
 }

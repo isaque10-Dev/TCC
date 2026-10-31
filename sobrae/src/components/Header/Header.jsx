@@ -12,7 +12,7 @@ const [abrir, setAbrir] = useState(false);
 const [localizacao, setLocalizacao] = useState(false);
 const [distancia, setDistancia] = useState("10");
 
-
+const [abrirCompartilhar, setAbrirCompartilhar] = useState(false);
 
 
 const [abrirAvisos, setAbrirAvisos] = useState(false);
@@ -151,6 +151,138 @@ onChange={(e) => setDistancia(e.target.value)}
 
 
 
+const link = window.location.origin + "/doacoes";
+
+function copiarLink() {
+  navigator.clipboard.writeText(link)
+    .then(() => alert("Link copiado!"))
+    .catch(() => alert("Não foi possível copiar o link."));
+}
+
+function compartilharWhatsApp() {
+  const mensagem = "Conheça o Sobraê e ajude a combater o desperdício! " + link;
+
+  window.open(
+    "https://wa.me/?text=" + encodeURIComponent(mensagem),
+    "_blank"
+  );
+}
+function compartilharInstagram(){
+  const mensagem = "Conheça o Sobraê e ajude a combater o desperdício!" + Link
+
+  window.open(
+    "https://www.instagram.com/"
+  )
+}
+
+function maisOpcoes() {
+  if (navigator.share) {
+    navigator.share({
+      title: "Sobraê",
+      text: "Conheça o Sobraê!",
+      url: link
+    }).catch(() => {});
+  } else {
+    copiarLink();
+  }
+}
+
+
+
+let janelaCompartilhar = null;
+
+if (abrirCompartilhar === true) {
+  janelaCompartilhar = (
+    <div
+      className="fundo-compartilhar"
+      onClick={() => setAbrirCompartilhar(false)}
+    >
+      <div
+        className="modal-compartilhar"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="compartilhar-branco">
+
+          <div className="compartilhar-topo">
+            <div>
+              <h2>Compartilhar</h2>
+              <p>
+                Ajude a compartilhar essa iniciativa para
+                que mais pessoas possam aproveitar!
+              </p>
+            </div>
+
+            <button onClick={() => setAbrirCompartilhar(false)}>
+              X
+            </button>
+          </div>
+
+          <div className="compartilhar-alimento">
+            <img
+              src="/assets/images/logo.png"
+              alt="logo"
+            />
+
+            <div>
+              <h3>Compartilhe alimentos</h3>
+              <p>Conheça as doações do Sobraê</p>
+             <button className="botaodoa" onClick={()=> setAbrirCompartilhar(false)}> <Link to="./doacoes"><span> Doações disponiveis</span></Link></button>
+            </div>
+          </div>
+
+          <h3 className="compartilhar-titulo">
+            Compartilhe com seus amigos!!!
+          </h3>
+
+          <p className="compartilhar-descricao">
+            Quanto mais pessoas souberem,
+            mais alimentos serão aproveitados!
+          </p>
+
+          <div className="compartilhar-redes">
+           
+<button onClick={compartilharWhatsApp}>
+  <span className="rede-whatsapp">
+    <img
+      src="/assets/images/icons/zap.png"
+      alt="WhatsApp"
+    />
+  </span>
+  WhatsApp
+</button>
+
+<button onClick={compartilharInstagram}>
+  <span className="rede-instagram">
+    <img
+      src="/assets/images/icons/insta.png"
+      alt="Instagram"
+    />
+  </span>
+  Instagram
+</button>
+
+
+            <button onClick={copiarLink}>
+              <span className="rede-copiar">
+                <img src="/assets/images/icons/copy.png" alt=""/>
+              </span>
+              Copiar link
+            </button>
+
+            <button onClick={maisOpcoes}>
+              <span className="rede-mais">•••</span>
+              Mais opções
+            </button>
+          </div>
+
+        
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
 
   return (
     <header className="header">
@@ -165,6 +297,9 @@ onChange={(e) => setDistancia(e.target.value)}
         />
       </div>
 
+
+      <div className="header-direita">
+
      <button
   type="button"
   className="config"
@@ -176,9 +311,22 @@ onChange={(e) => setDistancia(e.target.value)}
     alt=""
   />
 </button>
+        
+    
+<button
+  type="button"
+  className="header-compartilhar"
+  onClick={() => setAbrirCompartilhar(true)}
+  title="Compartilhar"
+>
+  <img
+    src="/assets/images/icons/compartilhar.png"
+    alt="Compartilhar"
+  />
+</button>
 
-      <div className="header-direita">
-       
+
+
 <button
   type="button"
   className="header-notificacoes"
@@ -209,6 +357,8 @@ onChange={(e) => setDistancia(e.target.value)}
       {janela}
 
       {janelaAvisos}
+
+      {janelaCompartilhar}
     </header>
   );
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { UserRound, Heart, Clock, Bell, ShieldCheck, CircleHelp, ChevronRight, Pencil, Leaf, LogOut, X } from "lucide-react";
+import { UserRound, Heart, Clock, CircleHelp, ChevronRight, Pencil, Leaf, LogOut, X } from "lucide-react";
 import "./index.css";
 
 function Perfil() {
@@ -84,17 +84,7 @@ function editarPerfil() {
             <ChevronRight />
           </Link>
 
-          <Link to="/notificacoes" className="perfil-item">
-            <span className="perfil-icone"><Bell /></span>
-            <span className="perfil-item-texto"><strong>Notificações</strong><small>Configure suas preferências de notificação</small></span>
-            <ChevronRight />
-          </Link>
 
-          <Link to="/privacidade" className="perfil-item">
-            <span className="perfil-icone"><ShieldCheck /></span>
-            <span className="perfil-item-texto"><strong>Privacidade e segurança</strong><small>Gerencie sua conta e dados</small></span>
-            <ChevronRight />
-          </Link>
 
           <Link to="/ajuda" className="perfil-item">
             <span className="perfil-icone perfil-ajuda"><CircleHelp /></span>

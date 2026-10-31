@@ -16,7 +16,6 @@ export default function Doacoes() {
   );
 
 
-  // CONFIRMAR RESERVA
 
   function confirmarReserva() {
     let mensagem = "";
@@ -52,8 +51,6 @@ export default function Doacoes() {
     alert("Solicitação enviada com sucesso!");
   }
 
-
-  // PUBLICAR DOACAO
 
   function publicarDoacao(e) {
     e.preventDefault();
@@ -96,7 +93,6 @@ export default function Doacoes() {
   }
 
 
-  // MODAL DE NOVA DOACAO
 
   let janela = null;
 
@@ -113,13 +109,7 @@ export default function Doacoes() {
           <div className="modal-doacao-topo">
             <h2>Nova doação</h2>
 
-            <button
-              type="button"
-              className="fechar"
-              onClick={() => setAbrir(false)}
-            >
-              X
-            </button>
+            <button type="button"className="fechar"onClick={() => setAbrir(false)}> X </button>
           </div>
 
           <form onSubmit={publicarDoacao}>
@@ -184,8 +174,6 @@ export default function Doacoes() {
     );
   }
 
-
-  // MODAL DE RESERVA
 
   let janelaReserva = null;
 
@@ -257,7 +245,7 @@ export default function Doacoes() {
 
       <div className="doe-topo">
 
-        {/* BANNER */}
+
 
         <div className="topo-pt1">
           <img
@@ -280,26 +268,13 @@ export default function Doacoes() {
               com pessoas que precisam.
             </h2>
 
-            <input
-              className="enput"
-              type="text"
-              placeholder="Buscar doações..."
-            />
+            <input className="enput"type="text"placeholder="Buscar doações..."/>
 
             <div className="botao">
               <button
-                className={`butao ${categoria === "Todos" ? "ativo" : ""}`}
-                onClick={() => setCategoria("Todos")}
-              >
-                Todos
-              </button>
+                className={`butao ${categoria === "Todos" ? "ativo" : ""}`}onClick={() => setCategoria("Todos")}>Todos</button>
 
-              <button
-                className={`butao ${categoria === "Frutas e verduras" ? "ativo" : ""}`}
-                onClick={() => setCategoria("Frutas e verduras")}
-              >
-                Frutas e verduras
-              </button>
+              <button className={`butao ${categoria === "Frutas e verduras" ? "ativo" : ""}`}onClick={() => setCategoria("Frutas e verduras")}>Frutas e verduras</button>
 
               <button
                 className={`butao ${categoria === "Pães" ? "ativo" : ""}`}
@@ -326,7 +301,6 @@ export default function Doacoes() {
         </div>
 
 
-        {/* POSTAR DOACAO */}
 
         <div className="insc">
           <div>
