@@ -91,7 +91,6 @@
   color: white;
 }
 
-/* POSTAR DOACAO */
 
 .insc {
   flex: 1;
@@ -140,8 +139,6 @@
   border-radius: 10px;
   cursor: pointer;
 }
-
-/* MODAL NOVA DOACAO */
 
 .fundo-modal {
   position: fixed;
@@ -237,7 +234,7 @@
   color: white;
 }
 
-/* DOACOES DISPONIVEIS */
+
 
 .disponiveis {
   margin-top: 30px;
@@ -339,7 +336,6 @@
   border-radius: 10px;
 }
 
-/* MODAL DE RESERVA */
 
 .fundo-reserva {
   position: fixed;
@@ -417,7 +413,6 @@
   color: white;
 }
 
-/* RESPONSIVIDADE */
 
 @media (max-width: 1100px) {
   .doe-topo {

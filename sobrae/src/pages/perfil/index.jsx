@@ -59,7 +59,7 @@ function editarPerfil() {
             <Leaf size={65} />
             <div>
               <h3>Seu impacto até agora</h3>
-              <strong>37,5 Kg</strong>
+              <strong>0,0 Kg</strong>
             </div>
             <p>Juntos<br />contra o<br />desperdício!</p>
           </div>

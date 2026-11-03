@@ -21,7 +21,7 @@ function Sidebar() {
 
 
 <nav className="sidebar-menu">
-  <Link to="/">
+  <Link to="/app">
     <img src="/assets/images/icons/home.png" alt="" />
     Início
   </Link>

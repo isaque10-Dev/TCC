@@ -339,20 +339,15 @@ if (abrirCompartilhar === true) {
 </button>
 
 
-<Link to="/login" className="entrar-login">
-  <img src="/assets/images/icons/perfil.png" alt="" />
+<Link to="/" className="entrar-login">
+  <img src="/assets/images/icons/perfil2.png" alt="" />
 
   <div>
     <strong>Entrar</strong>
     <p>Criar ou acessar conta</p>
   </div>
 </Link>
-        <Link to="/perfil" className="header-perfil"> <img src="/assets/images/icons/perfil2.png"alt=""/>
-         <div className="header-usuario">
-            <strong>Nome</strong>
-          <span>Pessoa física</span>
-          </div>
-        </Link>
+       
       </div>
       {janela}
 

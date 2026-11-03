@@ -14,7 +14,7 @@ export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
-  <Route path="/login" element={<Login />} />
+  <Route path="/" element={<Login />} />
   <Route path="/cadastro" element={<Cadastro />} />
   <Route path="*" element={<Error />} />
 
@@ -24,7 +24,7 @@ export default function Router() {
   
   <Route element={<Layout />}>
   
-    <Route path="/" element={<App />} />
+    <Route path="/App" element={<App />} />
     <Route path="/atividades" element={<Atividades />} />
     <Route path="/doacoes" element={<Doacoes />} />
     <Route path="/perfil" element={<Perfil />} />
