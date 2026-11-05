@@ -16,7 +16,7 @@ export default function NotFound() {
           Mas não se preocupe, ainda temos muito para compartilhar!
         </p>
 
-        <Link to="/" className="voltar">
+        <Link to="/app" className="voltar">
           Voltar ao início
         </Link>
       </div>

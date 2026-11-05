@@ -58,7 +58,7 @@ if (abrirAvisos === true) {
           <div className="notificacoes-lista">
             {avisos.map((aviso, i) => (
               <div className="notificacao" key={i}>
-                <span>🔔</span>
+                <img src="./assets/images/icon/notific2" alt="" />
                 <p>{aviso}</p>
               </div>
             ))}

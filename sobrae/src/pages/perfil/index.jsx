@@ -12,7 +12,8 @@ function Perfil() {
   const [novoNome, setNovoNome] = useState(nome);
   const [novoEmail, setNovoEmail] = useState(email);
   const [novoTipo, setNovoTipo] = useState(tipo);
-
+  const [Historico, setHistorico] = useState (false);
+  const [Ajuda, setAjuda] = useState (false);
 
 
 function editarPerfil() {
@@ -40,12 +41,13 @@ function editarPerfil() {
       <div className="perfil-conteudo">
         <div className="perfil-esquerda">
           <div className="perfil-usuario">
-            <div className="perfil-foto">
+            <div className="perfil-foto"
+>
               <UserRound size={62} />
             </div>
 
             <div className="perfil-dados">
-              <h2>{nome || "Meu Nome"}</h2>
+              <h2>{nome ||  "Meu Nome"}</h2>
               <p>{email || "email@gmail.com"}</p>
               <span className="perfil-tipo"><Leaf size={15} /> {tipo}</span>
             </div>
@@ -78,23 +80,121 @@ function editarPerfil() {
             <ChevronRight />
           </Link>
 
-          <Link to="/historico" className="perfil-item">
-            <span className="perfil-icone"><Clock /></span>
-            <span className="perfil-item-texto"><strong>Histórico</strong><small>Veja suas retiradas e doações</small></span>
-            <ChevronRight />
-          </Link>
+          <Link to="/historico" className="perfil-item" onClick={(e) => { e.preventDefault(); setHistorico(true); }}>
+    <span className="perfil-icone"><Clock /></span>
+    <span className="perfil-item-texto"><strong>Histórico</strong><small>Veja suas retiradas e doações</small></span>
+    <ChevronRight />
+     </Link>
 
 
+          <Link to="/ajuda" className="perfil-item" onClick={(e) => { e.preventDefault(); setAjuda(true); }}>
+    <span className="perfil-icone perfil-ajuda"><CircleHelp /></span>
+    <span className="perfil-item-texto">
+        <strong>Ajuda e suporte</strong>
+        <small>Tire suas dúvidas ou entre em contato</small>
+    </span>
+    <ChevronRight />
+</Link>
 
-          <Link to="/ajuda" className="perfil-item">
-            <span className="perfil-icone perfil-ajuda"><CircleHelp /></span>
-            <span className="perfil-item-texto"><strong>Ajuda e suporte</strong><small>Tire suas dúvidas ou entre em contato</small></span>
-            <ChevronRight />
-          </Link>
 
           <Link to="/login" className="perfil-sair"><LogOut size={18} /> Sair da conta</Link>
         </div>
       </div>
+
+     {Historico && (
+      <div className="perfil-fundo" onClick={(e) => {if (e.target === e.currentTarget) {setHistorico(false);}}}>
+        <div className="perfil-modal">
+       <div className="perfil-modal-topo">
+                <div>
+                    <h2>Histórico</h2>
+                    <p>Veja suas retiradas e doações</p>
+                </div>
+                <button onClick={() => setHistorico(false)} aria-label="Fechar"><X /></button>
+            </div>
+
+            <form onSubmit={Historico}>
+                <label>
+                    Seu histórico de doações aparecerá aqui.
+                </label>
+            </form>
+
+        </div>
+    </div>
+)}
+
+{Ajuda && (
+  <div className="perfil-fundo" onClick={(e) => {if (e.target === e.currentTarget) {setAjuda(false);}}}>
+    <div className="perfil-modal">
+     <div className="perfil-modal-topo">
+        <div>
+          <h2>Ajuda e suporte</h2>
+          <p>Como podemos ajudar você?</p>
+        </div>
+
+        <button onClick={() => setAjuda(false)}>
+          <X />
+        </button>
+      </div>
+
+      <div className="ajuda-conteudo">
+
+        <h3>Perguntas frequentes</h3>
+        <br/>
+        <div className="ajuda-item">
+          <strong>Como posso receber uma doação?</strong>
+          <br/>
+          <p>
+            Acesse a área de doações, escolha um alimento
+            disponível e demonstre seu interesse.
+          </p>
+          <br/>
+        </div>
+
+        <div className="ajuda-item">
+          <strong>Como acompanho minhas doações?</strong>
+          <br/>
+          <p>
+            Acesse "Minhas doações" para visualizar
+            as doações nas quais você demonstrou interesse.
+          </p>
+          <br/>
+        </div>
+
+        <div className="ajuda-item">
+          <strong>Como funciona a retirada?</strong>
+          <br/>
+          <p>
+            Após demonstrar interesse, siga as informações
+            de retirada disponibilizadas pelo estabelecimento.
+          </p>
+          <br/>
+        </div>
+
+        <div className="ajuda-item">
+          <strong>Como posso editar meus dados?</strong>
+          <br/>
+          <p>
+            Na tela de perfil, clique em "Editar Perfil"
+            para atualizar suas informações.
+          </p>
+          <br/>
+        </div>
+
+        <div className="ajuda-contato">
+          <div>
+            <strong>Ainda precisa de ajuda?</strong>
+            <br/>
+            <p>Entre em contato com nossa equipe de suporte.</p>
+            <p></p>
+            <br/>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+)}
 
       {editando && (
         <div className="perfil-fundo" onClick={(e) => { if (e.target === e.currentTarget) setEditando(false); }}>
@@ -130,6 +230,8 @@ function editarPerfil() {
       )}
       </div>
       </div>
+
+      
   );
 }
 

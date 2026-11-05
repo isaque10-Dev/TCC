@@ -13,7 +13,6 @@
   font-size: 14px;
 }
 
-/* RESUMO */
 
 .resumo {
   display: flex;
@@ -38,8 +37,6 @@
   margin: 12px 0;
 }
 
-/* BOTOES */
-
 .botoes {
   display: flex;
   gap: 12px;
@@ -60,8 +57,6 @@
   background: #064735;
   color: white;
 }
-
-/* CARDS */
 
 .lista-atividades {
   display: flex;
