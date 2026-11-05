@@ -332,14 +332,11 @@ export default function Doacoes() {
       </div>
 
 
-      {/* DOACOES DISPONIVEIS */}
-
       <div className="disponiveis">
         <h2>Doações disponíveis</h2>
 
         <div className="cards">
 
-          {/* FRUTAS */}
 
           {(categoria === "Todos" || categoria === "Frutas e verduras") ? (
             <div className="card">
@@ -350,7 +347,7 @@ export default function Doacoes() {
 
               <div className="dados">
                 <h3>Cesta de frutas e verduras</h3>
-
+''
                 <p>Mercado Boa Compra</p>
                 <p>Quantidade: 3 cestas</p>
                 <p>Validade: 2 dias</p>
@@ -358,9 +355,13 @@ export default function Doacoes() {
                 <span className="status">Disponível</span>
 
                 <div className="acoes-card">
-                  <button className="detalhes">
-                    Ver detalhes
-                  </button>
+
+
+
+
+
+
+
 
                   <button
                     className="reservar"
@@ -375,7 +376,6 @@ export default function Doacoes() {
           ) : null}
 
 
-          {/* PAES */}
 
           {(categoria === "Todos" || categoria === "Pães") ? (
             <div className="card">
@@ -394,10 +394,7 @@ export default function Doacoes() {
                 <span className="status">Disponível</span>
 
                 <div className="acoes-card">
-                  <button className="detalhes">
-                    Ver detalhes
-                  </button>
-
+                 
                   <button
                     className="reservar"
                     onClick={() => setReserva("paes")}
@@ -411,7 +408,6 @@ export default function Doacoes() {
           ) : null}
 
 
-          {/* REFEICOES */}
 
           {(categoria === "Todos" || categoria === "Refeições") ? (
             <div className="card">
@@ -432,9 +428,7 @@ export default function Doacoes() {
                 </span>
 
                 <div className="acoes-card">
-                  <button className="detalhes">
-                    Ver detalhes
-                  </button>
+                 
 
                   <button className="reservar" disabled>
                     Reservado
@@ -453,7 +447,6 @@ export default function Doacoes() {
       </div>
 
 
-      {/* MODAIS */}
 
       {janela}
       {janelaReserva}
