@@ -177,9 +177,11 @@ export default function Atividades() {
             </div>
           ))}
 
-        </div>
-      ) : (
-        <div className="lista-atividades">
+        </div>) 
+        
+        : 
+        
+        ( <div className="lista-atividades">
 
           {frutas === "pendente" ? (
             <div className="item">
