@@ -1,53 +1,131 @@
 
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 
+
+
+
+
+
+//teste2@example.com
+//Teste12345
+
+
+
+
+
 export default function Login() {
-  return (
-    <div className="login">
-      <div className="login-esquerda">
-       <div className="login-logo">
-  <img src="/assets/images/logo.png" alt="Sobraê" />
-  <h1>Sobra<span>ê</span></h1>
-</div>
 
-        <h1>Compartilhar faz a diferença.</h1>
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
+    const [erro, setErro] = useState("");
 
-        <p>
-          Conectando quem tem alimentos disponíveis
-          com quem precisa.
-        </p>
-      </div>
+    const navigate = useNavigate();
 
-      <div className="login-direita">
-        <div className="login-caixa">
-          <h1>Bem-vindo!</h1>
-          <p>Entre na sua conta para continuar.</p>
+    async function entrar(e) {
+        e.preventDefault();
 
-          <form>
-            <label>E-mail</label>
-            <input
-              type="email"
-              placeholder="Digite seu e-mail"required
-            />
+        setErro("");
 
-            <label>Senha</label>
-            <input type="password"placeholder="Digite sua senha"required
-            />
+        const dados = {
+            email: email,
+            senha: senha
+        };
 
-            <a href="#recuperar">Esqueceu sua senha?</a>
+        try {
+            const resposta = await fetch("http://127.0.0.1:50100/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(dados)
+            });
 
-            <button type="button">Entrar</button>
-          </form>
+            const resultado = await resposta.json();
 
-          <p>
-            Não tem uma conta?{" "}
-            <Link to="/cadastro">Cadastre-se</Link>
-          </p>
+            if (resposta.ok === false) {
+                setErro(resultado.erro);
+                return;
+            }
+
+            localStorage.setItem("sobraeToken", resultado.token);
+            localStorage.setItem("sobraeUsuario", JSON.stringify(resultado.usuario));
+
+            navigate("/app");
+
+        } catch (error) {
+            setErro("Não foi possível conectar com a API.");
+            console.log(error);
+        }
+    }
+
+    let mensagemErro = null;
+
+    if (erro !== "") {
+        mensagemErro = <p style={{ color: "red" }}>{erro}</p>;
+    }
+
+    return (
+        <div className="login">
+
+            <div className="login-esquerda">
+                <div className="login-logo">
+                    <img src="/assets/images/logo.png" alt="Sobraê" />
+                    <h1>Sobra<span>ê</span></h1>
+                </div>
+
+                <h1>Compartilhar faz a diferença.</h1>
+
+                <p>
+                    Conectando quem tem alimentos disponíveis
+                    com quem precisa.
+                </p>
+            </div>
+
+            <div className="login-direita">
+                <div className="login-caixa">
+
+                    <h1>Bem-vindo!</h1>
+                    <p>Entre na sua conta para continuar.</p>
+
+                    <form onSubmit={entrar}>
+
+                        <label>E-mail</label>
+
+                        <input
+                            type="email"
+                            placeholder="Digite seu e-mail"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+
+                        <label>Senha</label>
+
+                        <input
+                            type="password"
+                            placeholder="Digite sua senha"
+                            value={senha}
+                            onChange={(e) => setSenha(e.target.value)}
+                            required
+                        />
+
+                        <a href="#recuperar">Esqueceu sua senha?</a>
+
+                        {mensagemErro}
+
+                        <button type="submit">Entrar</button>
+
+                    </form>
+
+                    <p>
+                        Não tem uma conta?{" "}
+                        <Link to="/cadastro">Cadastre-se</Link>
+                    </p>
+
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
-
-
