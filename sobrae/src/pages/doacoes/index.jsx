@@ -10,6 +10,10 @@ export default function Doacoes() {
 
     const [abrir, setAbrir] = useState(false);
     const [reserva, setReserva] = useState(null);
+      
+    const [abrirEvento, setAbrirEvento] = useState(false);
+    const [tipoOrganizador, setTipoOrganizador] = useState("pessoa");
+    const [mensagemEvento, setMensagemEvento] = useState("");
 
     const [doacoes, setDoacoes] = useState([]);
     const [solicitadas, setSolicitadas] = useState([]);
@@ -341,6 +345,66 @@ export default function Doacoes() {
 
     // MODAL DE PUBLICAR DOACAO
 
+      // ENVIO DE SOLICITAÇÃO DE EVENTO SOLIDÁRIO
+  function solicitarEvento(e) {
+    e.preventDefault();
+
+    const formulario = new FormData(e.currentTarget);
+
+    const novaSolicitacao = {
+      id: Date.now(),
+      tipoOrganizador,
+      nomeResponsavel: String(formulario.get("nomeResponsavel") || "").trim(),
+      nomeOrganizacao:
+        tipoOrganizador === "pessoa"
+          ? ""
+          : String(formulario.get("nomeOrganizacao") || "").trim(),
+      email: String(formulario.get("email") || "").trim(),
+      telefone: String(formulario.get("telefone") || "").trim(),
+      nomeEvento: String(formulario.get("nomeEvento") || "").trim(),
+      proposta: String(formulario.get("proposta") || "").trim(),
+      alimentos: String(formulario.get("alimentos") || "").trim(),
+      publicoEstimado: Number(formulario.get("publicoEstimado")),
+      endereco: String(formulario.get("endereco") || "").trim(),
+      cidade: String(formulario.get("cidade") || "").trim(),
+      estado: String(formulario.get("estado") || "").trim(),
+      data: String(formulario.get("data") || ""),
+      horario: String(formulario.get("horario") || ""),
+      status: "Pendente de análise",
+      criadoEm: new Date().toISOString()
+    };
+
+    const solicitacoes = JSON.parse(
+      localStorage.getItem("solicitacoesEventosSobrae") || "[]"
+    );
+
+    solicitacoes.unshift(novaSolicitacao);
+
+    localStorage.setItem(
+      "solicitacoesEventosSobrae",
+      JSON.stringify(solicitacoes)
+    );
+
+    const avisos = JSON.parse(
+      localStorage.getItem("avisosSobrae") || "[]"
+    );
+
+    avisos.unshift(
+      "Sua proposta de evento '" +
+        novaSolicitacao.nomeEvento +
+        "' foi registrada e está pendente de análise."
+    );
+
+    localStorage.setItem("avisosSobrae", JSON.stringify(avisos));
+
+    setAbrirEvento(false);
+    setTipoOrganizador("pessoa");
+    setMensagemEvento(
+      "Sua proposta foi registrada com sucesso! Ela está pendente de análise."
+    );
+  }
+
+
     let janela = null;
 
     if (abrir === true) {
@@ -540,6 +604,275 @@ export default function Doacoes() {
         mensagemLista = <p>Nenhuma doação encontrada.</p>;
     }
 
+    
+  // MODAL DE SOLICITAÇÃO DE EVENTO SOLIDÁRIO
+  let janelaEvento = null;
+
+  if (abrirEvento) {
+    janelaEvento = (
+      <div
+        className="evento-fundo-modal"
+        onClick={() => setAbrirEvento(false)}
+      >
+        <div
+          className="evento-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="evento-titulo-modal"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="evento-modal-topo">
+            <div>
+              <h2 id="evento-titulo-modal">
+                Propor evento solidário
+              </h2>
+              <p>
+                Conte sua ideia para a equipe do Sobraê.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              className="evento-fechar"
+              aria-label="Fechar formulário"
+              onClick={() => setAbrirEvento(false)}
+            >
+              ×
+            </button>
+          </div>
+
+          <div className="evento-aviso">
+            Sua proposta será analisada pela equipe do
+            Sobraê. O envio não significa que o evento
+            foi aprovado.
+          </div>
+
+          <form onSubmit={solicitarEvento}>
+            <h3>1. Dados do organizador</h3>
+
+            <label htmlFor="evento-tipo">
+              Quem está propondo o evento?
+            </label>
+            <select
+              id="evento-tipo"
+              value={tipoOrganizador}
+              onChange={(e) =>
+                setTipoOrganizador(e.target.value)
+              }
+              required
+            >
+              <option value="pessoa">Pessoa física</option>
+              <option value="empresa">Empresa</option>
+              <option value="instituicao">
+                Instituição ou ONG
+              </option>
+            </select>
+
+            {tipoOrganizador !== "pessoa" && (
+              <>
+                <label htmlFor="evento-organizacao">
+                  {tipoOrganizador === "empresa"
+                    ? "Nome da empresa"
+                    : "Nome da instituição"}
+                </label>
+                <input
+                  id="evento-organizacao"
+                  name="nomeOrganizacao"
+                  type="text"
+                  placeholder="Nome da organização"
+                  required
+                />
+              </>
+            )}
+
+            <label htmlFor="evento-responsavel">
+              Nome do responsável
+            </label>
+            <input
+              id="evento-responsavel"
+              name="nomeResponsavel"
+              type="text"
+              placeholder="Nome completo"
+              required
+            />
+
+            <div className="evento-duas-colunas">
+              <div>
+                <label htmlFor="evento-email">E-mail</label>
+                <input
+                  id="evento-email"
+                  name="email"
+                  type="email"
+                  placeholder="seu@email.com"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="evento-telefone">
+                  Telefone / WhatsApp
+                </label>
+                <input
+                  id="evento-telefone"
+                  name="telefone"
+                  type="tel"
+                  placeholder="(11) 99999-9999"
+                  required
+                />
+              </div>
+            </div>
+
+            <h3>2. Sobre o evento</h3>
+
+            <label htmlFor="evento-nome">
+              Nome do evento
+            </label>
+            <input
+              id="evento-nome"
+              name="nomeEvento"
+              type="text"
+              placeholder="Ex: Alimentando nossa comunidade"
+              required
+            />
+
+            <label htmlFor="evento-proposta">
+              Qual é a sua proposta?
+            </label>
+            <textarea
+              id="evento-proposta"
+              name="proposta"
+              rows="4"
+              placeholder="Explique como será a distribuição, quem será beneficiado, como pretende organizar e que apoio espera do Sobraê."
+              required
+            />
+
+            <label htmlFor="evento-alimentos">
+              Quais alimentos pretende distribuir?
+            </label>
+            <textarea
+              id="evento-alimentos"
+              name="alimentos"
+              rows="3"
+              placeholder="Ex: 100 marmitas, 50 cestas básicas, frutas e pães. Informe também se já possui os alimentos ou precisa de parceiros."
+              required
+            />
+
+            <label htmlFor="evento-publico">
+              Quantas pessoas pretende atender?
+            </label>
+            <input
+              id="evento-publico"
+              name="publicoEstimado"
+              type="number"
+              min="1"
+              placeholder="Ex: 150"
+              required
+            />
+
+            <h3>3. Local e data</h3>
+
+            <label htmlFor="evento-endereco">
+              Local previsto para a distribuição
+            </label>
+            <input
+              id="evento-endereco"
+              name="endereco"
+              type="text"
+              placeholder="Rua, número, bairro ou ponto de referência"
+              required
+            />
+
+            <div className="evento-duas-colunas">
+              <div>
+                <label htmlFor="evento-cidade">Cidade</label>
+                <input
+                  id="evento-cidade"
+                  name="cidade"
+                  type="text"
+                  placeholder="Ex: São Paulo"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="evento-estado">Estado</label>
+                <select
+                  id="evento-estado"
+                  name="estado"
+                  defaultValue=""
+                  required
+                >
+                  <option value="" disabled>Selecione</option>
+                  {[
+                    "AC", "AL", "AP", "AM", "BA", "CE",
+                    "DF", "ES", "GO", "MA", "MT", "MS",
+                    "MG", "PA", "PB", "PR", "PE", "PI",
+                    "RJ", "RN", "RS", "RO", "RR", "SC",
+                    "SP", "SE", "TO"
+                  ].map((uf) => (
+                    <option key={uf} value={uf}>{uf}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="evento-duas-colunas">
+              <div>
+                <label htmlFor="evento-data">
+                  Data prevista
+                </label>
+                <input
+                  id="evento-data"
+                  name="data"
+                  type="date"
+                  min={new Date().toLocaleDateString("en-CA")}
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="evento-horario">
+                  Horário previsto
+                </label>
+                <input
+                  id="evento-horario"
+                  name="horario"
+                  type="time"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="evento-termos">
+              <label>
+                <input type="checkbox" required />
+                <span>
+                  Entendo que esta é apenas uma solicitação.
+                  A realização do evento depende de análise
+                  e aprovação da equipe do Sobraê.
+                </span>
+              </label>
+            </div>
+
+            <div className="evento-acoes">
+              <button
+                type="button"
+                className="evento-cancelar"
+                onClick={() => setAbrirEvento(false)}
+              >
+                Cancelar
+              </button>
+
+              <button
+                type="submit"
+                className="evento-enviar"
+              >
+                Enviar proposta
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
 
     return (
         <div className="doe">
@@ -656,6 +989,54 @@ export default function Doacoes() {
 
             </div>
 
+                 
+      {/* SEÇÃO DE EVENTOS SOLIDÁRIOS */}
+      <section className="evento-secao">
+        <div className="evento-conteudo">
+          <span className="evento-etiqueta">
+            Solidariedade além da internet
+          </span>
+
+          <h2>Organize um evento solidário</h2>
+
+          <p>
+            Nem todas as pessoas têm acesso à internet.
+            Ajude o Sobraê a levar alimentos diretamente
+            às comunidades que mais precisam.
+          </p>
+
+          <p>
+            Você, sua empresa ou instituição pode propor
+            um evento presencial de distribuição gratuita
+            de alimentos.
+          </p>
+
+          <div className="evento-destaque">
+            Sua ideia, nosso propósito: fazer o alimento
+            chegar a quem precisa.
+          </div>
+
+          <button
+            type="button"
+            className="evento-botao"
+            onClick={() => setAbrirEvento(true)}
+          >
+            + Propor evento solidário
+          </button>
+
+          <small>
+            Todas as propostas passam por análise
+            da equipe do Sobraê.
+          </small>
+
+          {mensagemEvento && (
+            <p className="evento-sucesso" role="status">
+              {mensagemEvento}
+            </p>
+          )}
+        </div>
+      </section>
+           
 
             <div className="disponiveis">
 
@@ -732,7 +1113,9 @@ export default function Doacoes() {
 
             {janela}
             {janelaReserva}
+            {janelaEvento}
 
         </div>
     );
-}
+};
+ 

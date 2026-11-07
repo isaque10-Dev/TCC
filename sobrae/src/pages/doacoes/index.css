@@ -440,3 +440,345 @@
     padding: 20px;
   }
 }
+
+
+/* ==========================================
+   SOBRAÊ - EVENTOS SOLIDÁRIOS
+   ========================================== */
+
+/* SEÇÃO NA PÁGINA DE DOAÇÕES */
+
+.evento-secao {
+  margin: 35px 25px;
+  padding: 36px 42px;
+  background: linear-gradient(
+    120deg,
+    #e1f3e5 0%,
+    #f8f7f1 100%
+  );
+  border: 1px solid #d2e7d8;
+  border-radius: 22px;
+  box-sizing: border-box;
+}
+
+.evento-conteudo {
+  max-width: 850px;
+}
+
+.evento-etiqueta {
+  display: inline-block;
+  background: #d0e8d8;
+  color: #104638;
+  padding: 8px 16px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.evento-conteudo h2 {
+  color: #064b3b;
+  font-size: 30px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+.evento-conteudo p {
+  color: #315e52;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.evento-destaque {
+  margin: 20px 0;
+  padding: 15px 18px;
+  background: rgba(255, 255, 255, 0.75);
+  border-left: 4px solid #299d64;
+  border-radius: 8px;
+  color: #104638;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.evento-botao {
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  margin-top: 22px;
+  padding: 16px 24px;
+  background: #a90f4c;
+  color: #ffffff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.evento-botao:hover {
+  background: #870d3d;
+  transform: translateY(-2px);
+}
+
+.evento-conteudo small {
+  display: block;
+  margin-top: 12px;
+  color: #537368;
+  font-size: 12px;
+}
+
+.evento-conteudo .evento-sucesso {
+  margin-top: 16px;
+  padding: 14px;
+  background: #d7f2df;
+  color: #155e39;
+  border-radius: 9px;
+  font-weight: 600;
+}
+
+/* FUNDO DA JANELA */
+
+.evento-fundo-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.48);
+  backdrop-filter: blur(5px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* JANELA INTERATIVA */
+
+.evento-modal {
+  background: #fffdf9;
+  width: 100%;
+  max-width: 620px;
+  max-height: 85vh;
+  overflow-y: auto;
+  border-radius: 18px;
+  padding: 32px;
+  box-sizing: border-box;
+  box-shadow: 0 15px 55px rgba(0, 0, 0, 0.2);
+  color: #104638;
+}
+
+.evento-modal-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.evento-modal-topo h2 {
+  color: #064b3b;
+  font-size: 27px;
+  margin: 0 0 7px;
+}
+
+.evento-modal-topo p {
+  color: #527166;
+  font-size: 14px;
+  margin: 0;
+}
+
+.evento-fechar {
+  background: transparent;
+  border: none;
+  color: #104638;
+  font-size: 32px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 5px;
+}
+
+.evento-aviso {
+  background: #e7f4e9;
+  border-left: 4px solid #299d64;
+  border-radius: 8px;
+  padding: 13px 15px;
+  margin-bottom: 25px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #285a46;
+}
+
+/* FORMULÁRIO */
+
+.evento-modal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.evento-modal form h3 {
+  color: #104638;
+  font-size: 18px;
+  margin: 24px 0 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e0e9e2;
+}
+
+.evento-modal form h3:first-of-type {
+  margin-top: 0;
+}
+
+.evento-modal form label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #104638;
+  margin: 0 0 8px;
+}
+
+.evento-modal form input:not([type="checkbox"]),
+.evento-modal form select,
+.evento-modal form textarea {
+  width: 100%;
+  min-width: 0;
+  padding: 13px 14px;
+  border: 1px solid #cdded3;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #183e34;
+  font-size: 15px;
+  font-family: inherit;
+  margin-bottom: 17px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+.evento-modal form textarea {
+  resize: vertical;
+  min-height: 95px;
+}
+
+.evento-modal form input:focus,
+.evento-modal form select:focus,
+.evento-modal form textarea:focus {
+  border-color: #299d64;
+  box-shadow: 0 0 0 3px rgba(41, 157, 100, 0.12);
+}
+
+.evento-duas-colunas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.evento-duas-colunas > div {
+  min-width: 0;
+}
+
+/* CONFIRMAÇÃO */
+
+.evento-termos {
+  background: #f2f6f0;
+  border-radius: 10px;
+  padding: 15px;
+  margin: 10px 0 22px;
+}
+
+.evento-termos label {
+  display: flex !important;
+  align-items: flex-start;
+  gap: 12px;
+  margin: 0 !important;
+  cursor: pointer;
+}
+
+.evento-termos input[type="checkbox"] {
+  margin-top: 4px;
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  accent-color: #299d64;
+}
+
+.evento-termos span {
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+/* BOTÕES DO FORMULÁRIO */
+
+.evento-acoes {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.evento-acoes button {
+  flex: 1;
+  padding: 15px 12px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.evento-cancelar {
+  background: #e5ede7;
+  color: #104638;
+}
+
+.evento-cancelar:hover {
+  background: #d2e0d5;
+}
+
+.evento-enviar {
+  background: #a90f4c;
+  color: white;
+}
+
+.evento-enviar:hover {
+  background: #870d3d;
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 768px) {
+  .evento-secao {
+    margin: 20px 12px;
+    padding: 25px 20px;
+  }
+
+  .evento-conteudo h2 {
+    font-size: 24px;
+  }
+
+  .evento-conteudo p {
+    font-size: 14px;
+  }
+
+  .evento-botao {
+    max-width: 100%;
+  }
+
+  .evento-modal {
+    max-height: 90vh;
+    padding: 22px 18px;
+  }
+
+  .evento-modal-topo h2 {
+    font-size: 23px;
+  }
+
+  .evento-duas-colunas {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .evento-acoes {
+    flex-direction: column;
+  }
+}
+
