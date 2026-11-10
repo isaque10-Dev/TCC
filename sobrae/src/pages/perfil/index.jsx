@@ -97,7 +97,7 @@ function editarPerfil() {
 </Link>
 
 
-          <Link to="/login" className="perfil-sair"><LogOut size={18} /> Sair da conta</Link>
+          <Link to="/" className="perfil-sair"><LogOut size={18} /> Sair da conta</Link>
         </div>
       </div>
 
