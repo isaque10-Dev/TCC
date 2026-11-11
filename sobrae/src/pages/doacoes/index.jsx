@@ -55,7 +55,6 @@ export default function Doacoes() {
     }
 
 
-    // CARREGAR AS SOLICITACOES DO USUARIO
 
     async function carregarSolicitacoes() {
 
@@ -84,15 +83,12 @@ export default function Doacoes() {
     }
 
 
-    // CARREGAR AO ABRIR A PAGINA
-
     useEffect(() => {
         carregarDoacoes();
         carregarSolicitacoes();
     }, []);
 
 
-    // DESCOBRIR SE A DOACAO E DO USUARIO
 
     function minhaDoacao(doacao) {
 
@@ -116,7 +112,6 @@ export default function Doacoes() {
     }
 
 
-    // VERIFICAR SE JA SOLICITOU
 
     function jaSolicitada(codigo) {
 
@@ -138,7 +133,6 @@ export default function Doacoes() {
     }
 
 
-    // PUBLICAR DOACAO NA API
 
     async function publicarDoacao(e) {
 
@@ -199,7 +193,6 @@ export default function Doacoes() {
     }
 
 
-    // ABRIR A RESERVA
 
     function abrirReserva(doacao) {
 
@@ -216,7 +209,6 @@ export default function Doacoes() {
     }
 
 
-    // CONFIRMAR RESERVA NA API
 
     async function confirmarReserva() {
 
@@ -266,7 +258,6 @@ export default function Doacoes() {
     }
 
 
-    // IMAGEM DO ALIMENTO
 
     function imagemDoacao(tipo) {
 
@@ -286,7 +277,6 @@ export default function Doacoes() {
     }
 
 
-    // FORMATAR DATA
 
     function formatarData(data) {
 
@@ -304,7 +294,6 @@ export default function Doacoes() {
     }
 
 
-    // CLASSE DOS FILTROS
 
     function classeCategoria(nome) {
 
@@ -316,7 +305,6 @@ export default function Doacoes() {
     }
 
 
-    // FILTRAR AS DOACOES
 
     const doacoesFiltradas = doacoes.filter((doacao) => {
 
@@ -343,7 +331,6 @@ export default function Doacoes() {
     });
 
 
-    // MODAL DE PUBLICAR DOACAO
 
       // ENVIO DE SOLICITAÇÃO DE EVENTO SOLIDÁRIO
   function solicitarEvento(e) {
@@ -515,7 +502,6 @@ export default function Doacoes() {
     }
 
 
-    // MODAL DE CONFIRMAR RESERVA
 
     let janelaReserva = null;
 
@@ -590,7 +576,6 @@ export default function Doacoes() {
     }
 
 
-    // MENSAGEM QUANDO NAO TEM DOACOES
 
     let mensagemLista = null;
 

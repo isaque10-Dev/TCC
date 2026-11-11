@@ -31,31 +31,81 @@ function App() {
 
   <div className="passos">
     <div className="passo">
-      
+      <div className="nume1">
+        <h2>1</h2>
+      </div>
       <img src="/assets/images/icons/estabelecimentos.png" alt="" />
       <p>Você encontra doações próximas</p>
     </div>
 
+
+    <div className="apo">
+
+      <div className="apont">
+          <img src="/assets/images/icons/apontando.png " alt=" " />
+      </div>
+    </div>
+
+
+
     <div className="passo">
-      
+      <div className="nume">
+        <h2>2</h2>
+      </div>
       <img src="/assets/images/icons/mapa.png" alt="" />
       <p>Seleciona o que precisa</p>
     </div>
 
+
+    <div className="apo">
+
+      <div className="apont">
+          <img src="/assets/images/icons/apontando.png " alt=" " />
+      </div>
+    </div>
+
+
+
     <div className="passo">
-     
+     <div className="nume">
+      <h2>3</h2>
+     </div>
       <img src="/assets/images/icons/perfil.png" alt="" />
       <p>Solicita a reserva</p>
     </div>
 
+
+    <div className="apo">
+
+      <div className="apont">
+          <img src="/assets/images/icons/apontando.png " alt=" " />
+      </div>
+    </div>
+
+
+
     <div className="passo">
-      
+      <div className="nume">
+        <h2>4</h2>
+      </div>
       <img src="/assets/images/icons/caminhao.png" alt="" />
       <p>Combina a retirada</p>
     </div>
 
+
+    <div className="apo">
+
+      <div className="apont">
+          <img src="/assets/images/icons/apontando.png " alt=" " />
+      </div>
+    </div>
+
+
+
     <div className="passo">
-      
+      <div className="nume">
+        <h2>5</h2>
+      </div>
       <img src="/assets/images/icons/coracao.png" alt="" />
       <p>Recebe e aproveita!</p>
     </div>

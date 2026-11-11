@@ -91,7 +91,7 @@ body{
   position: relative;
   flex: 1;
   min-width: 500px;
-  height: 260px;
+  height: 280px;
   overflow: hidden;
   border-radius: 15px;
 }
@@ -108,7 +108,6 @@ body{
 .home-banner {
   position: absolute;
   width: 100%;
-  height: 100%;
   top: 0;
   left: 0;
   object-fit: cover;
@@ -118,9 +117,10 @@ body{
   position: absolute;
   width: 38%;
   height: 90%;
-  right: 10px;
+  left: 320px;
+  min-width: 0vh;
   bottom: 0;
-  object-fit: contain;
+
 }
 
 
@@ -144,7 +144,7 @@ body{
 
 .passos {
   display: flex;
-  gap: 8px;
+  
   flex: 1;
 }
 
@@ -162,6 +162,36 @@ body{
   gap: 12px;
 }
 
+.nume, .nume1{
+  color: white;
+  font-size: 5px;
+  background-color: #ac124b;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items:center ;
+  justify-content: center;
+
+  position: absolute;
+  top: 1rem;
+}
+
+.nume h2, .nume1 h2{
+  margin-top: 1.3rem;
+  color: rgb(255, 255, 255)
+}
+
+
+.apo{
+  position: relative;
+  top: 5rem;
+}
+.apont img{
+
+  width: 1rem;
+  height: 1rem;
+}
 
 .passo img {
   width: 25px;
@@ -176,7 +206,11 @@ body{
   text-align: center;
 }
 
-
+.passo:hover{
+  transform: translateY(-8px);
+  background-color: #29a86b;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
 
 
 
