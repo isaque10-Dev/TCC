@@ -529,6 +529,47 @@
   font-weight: 600;
 }
 
+.evento-erro {
+  margin: 14px 0;
+  padding: 12px;
+  border-radius: 8px;
+  background: #fff0ed;
+  color: #a10f35;
+}
+
+.evento-propostas {
+  margin-top: 24px;
+  max-width: 650px;
+}
+
+.evento-propostas h3 {
+  margin: 0 0 10px;
+  color: #064b3b;
+}
+
+.evento-propostas article {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 12px;
+  margin-top: 10px;
+  padding: 13px;
+  border-radius: 9px;
+  background: rgba(255, 255, 255, 0.75);
+  color: #315e52;
+}
+
+.evento-propostas article span {
+  color: #176443;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.evento-propostas article small,
+.evento-propostas article p {
+  grid-column: 1 / -1;
+  margin: 0;
+}
+
 /* FUNDO DA JANELA */
 
 .evento-fundo-modal {

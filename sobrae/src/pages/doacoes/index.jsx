@@ -28,6 +28,9 @@ export default function Doacoes() {
     const [abrirEvento, setAbrirEvento] = useState(false);
     const [tipoOrganizador, setTipoOrganizador] = useState("pessoa");
     const [mensagemEvento, setMensagemEvento] = useState("");
+    const [erroEvento, setErroEvento] = useState("");
+    const [propostasEventos, setPropostasEventos] = useState([]);
+    const [enviandoEvento, setEnviandoEvento] = useState(false);
 
     const [doacoes, setDoacoes] = useState([]);
     const [solicitadas, setSolicitadas] = useState([]);
@@ -80,6 +83,20 @@ export default function Doacoes() {
         }
     }
 
+    async function carregarEventos() {
+        if (!localStorage.getItem("sobraeToken")) {
+            setPropostasEventos([]);
+            return;
+        }
+
+        try {
+            const resposta = await api.get("/eventos-solidarios/minhas");
+            setPropostasEventos(resposta.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
 
     useEffect(() => {
         const controle = new AbortController();
@@ -89,6 +106,7 @@ export default function Doacoes() {
 
     useEffect(() => {
         carregarSolicitacoes();
+        carregarEventos();
     }, []);
 
 
@@ -319,13 +337,18 @@ export default function Doacoes() {
 
 
       // ENVIO DE SOLICITAÇÃO DE EVENTO SOLIDÁRIO
-  function solicitarEvento(e) {
+  async function solicitarEvento(e) {
     e.preventDefault();
+
+    if (!localStorage.getItem("sobraeToken")) {
+      alert("Faça login para propor um evento.");
+      navigate("/login");
+      return;
+    }
 
     const formulario = new FormData(e.currentTarget);
 
     const novaSolicitacao = {
-      id: Date.now(),
       tipoOrganizador,
       nomeResponsavel: String(formulario.get("nomeResponsavel") || "").trim(),
       nomeOrganizacao:
@@ -342,39 +365,29 @@ export default function Doacoes() {
       cidade: String(formulario.get("cidade") || "").trim(),
       estado: String(formulario.get("estado") || "").trim(),
       data: String(formulario.get("data") || ""),
-      horario: String(formulario.get("horario") || ""),
-      status: "Pendente de análise",
-      criadoEm: new Date().toISOString()
+      horario: String(formulario.get("horario") || "")
     };
 
-    const solicitacoes = JSON.parse(
-      localStorage.getItem("solicitacoesEventosSobrae") || "[]"
-    );
+    setEnviandoEvento(true);
+    setErroEvento("");
+    try {
+      const resposta = await api.post("/eventos-solidarios", novaSolicitacao);
+      await carregarEventos();
+      setAbrirEvento(false);
+      setTipoOrganizador("pessoa");
+      setMensagemEvento(resposta.data.mensagem || "Sua proposta foi enviada para análise.");
+    } catch (error) {
+      console.log(error);
+      setErroEvento(mensagemDaApi(error, "Não foi possível enviar a proposta."));
+    } finally {
+      setEnviandoEvento(false);
+    }
+  }
 
-    solicitacoes.unshift(novaSolicitacao);
-
-    localStorage.setItem(
-      "solicitacoesEventosSobrae",
-      JSON.stringify(solicitacoes)
-    );
-
-    const avisos = JSON.parse(
-      localStorage.getItem("avisosSobrae") || "[]"
-    );
-
-    avisos.unshift(
-      "Sua proposta de evento '" +
-        novaSolicitacao.nomeEvento +
-        "' foi registrada e está pendente de análise."
-    );
-
-    localStorage.setItem("avisosSobrae", JSON.stringify(avisos));
-
-    setAbrirEvento(false);
-    setTipoOrganizador("pessoa");
-    setMensagemEvento(
-      "Sua proposta foi registrada com sucesso! Ela está pendente de análise."
-    );
+  function nomeStatusEvento(status) {
+    if (status === "aprovada") return "Aprovada";
+    if (status === "recusada") return "Recusada";
+    return "Pendente de análise";
   }
 
 
@@ -618,6 +631,10 @@ export default function Doacoes() {
             foi aprovado.
           </div>
 
+          {erroEvento && (
+            <p className="evento-erro" role="alert">{erroEvento}</p>
+          )}
+
           <form onSubmit={solicitarEvento}>
             <h3>1. Dados do organizador</h3>
 
@@ -834,8 +851,9 @@ export default function Doacoes() {
               <button
                 type="submit"
                 className="evento-enviar"
+                disabled={enviandoEvento}
               >
-                Enviar proposta
+                {enviandoEvento ? "Enviando..." : "Enviar proposta"}
               </button>
             </div>
           </form>
@@ -1005,6 +1023,25 @@ export default function Doacoes() {
               {mensagemEvento}
             </p>
           )}
+
+          <div className="evento-propostas">
+            <h3>Suas propostas</h3>
+            {!propostasEventos.length && (
+              <p>Nenhuma proposta enviada ainda.</p>
+            )}
+            {propostasEventos.map((proposta) => (
+              <article key={proposta.id_proposta_evento}>
+                <strong>{proposta.nome_evento}</strong>
+                <span>{nomeStatusEvento(proposta.status)}</span>
+                <small>
+                  {formatarData(proposta.data_evento)} · {proposta.cidade}/{proposta.estado}
+                </small>
+                {proposta.justificativa && (
+                  <p>Retorno da equipe: {proposta.justificativa}</p>
+                )}
+              </article>
+            ))}
+          </div>
         </div>
       </section>
            

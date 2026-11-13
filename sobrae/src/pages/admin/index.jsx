@@ -5,6 +5,7 @@ import "./index.css";
 export default function Admin() {
   const [contas, setContas] = useState([]);
   const [doacoes, setDoacoes] = useState([]);
+  const [eventos, setEventos] = useState([]);
   const [erro, setErro] = useState("");
   const [resumo, setResumo] = useState({
     situacoes: [],
@@ -25,10 +26,12 @@ export default function Admin() {
         api.get("/admin/contas"),
         api.get("/admin/doacoes"),
         api.get("/admin/resumo"),
+        api.get("/admin/eventos-solidarios"),
       ]);
       setContas(respostas[0].data);
       setDoacoes(respostas[1].data);
       setResumo(respostas[2].data);
+      setEventos(respostas[3].data);
       setErro("");
     } catch (error) {
       setErro(
@@ -68,12 +71,40 @@ export default function Admin() {
     }
   }
 
+  async function analisarEvento(evento, novoStatus) {
+    if (salvando || evento.status !== "pendente") return;
+    const justificativa = window.prompt(
+      "Escreva uma justificativa para " +
+        (novoStatus === "aprovada" ? "a aprovação" : "a recusa") +
+        " (opcional):",
+    );
+    if (justificativa === null) return;
+    if (!window.confirm("Confirmar que a proposta será " + novoStatus + "?")) return;
+    setSalvando(true);
+    try {
+      await api.patch(
+        "/admin/eventos-solidarios/" + evento.id_proposta_evento + "/status",
+        { status: novoStatus, justificativa },
+      );
+      await carregar();
+    } catch (error) {
+      setErro(mensagemDaApi(error, "Não foi possível analisar a proposta."));
+    } finally {
+      setSalvando(false);
+    }
+  }
+
   const nomesStatus = {
     disponivel: "Disponíveis",
     reservado: "Reservadas",
     concluido: "Concluídas",
     cancelado: "Canceladas",
     expirado: "Vencidas",
+  };
+  const nomesStatusEvento = {
+    pendente: "Pendente",
+    aprovada: "Aprovada",
+    recusada: "Recusada",
   };
   const totalDoacoes = resumo.situacoes.reduce(
     (total, item) => total + Number(item.total),
@@ -357,6 +388,87 @@ export default function Admin() {
         </div>
         {!carregando && !doacoes.length && (
           <p className="admin-vazio">Nenhuma doação publicada.</p>
+        )}
+      </section>
+
+      <section className="admin-painel">
+        <h2>Eventos solidários</h2>
+        <p>Analise as propostas enviadas pelos usuários da plataforma.</p>
+        <div
+          className="admin-tabela-rolagem"
+          tabIndex="0"
+          role="region"
+          aria-label="Tabela de propostas de eventos solidários"
+        >
+          <table className="admin-tabela">
+            <thead>
+              <tr>
+                <th scope="col">Evento</th>
+                <th scope="col">Responsável</th>
+                <th scope="col">Local e data</th>
+                <th scope="col">Proposta</th>
+                <th scope="col">Situação</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {eventos.map((evento) => (
+                <tr key={evento.id_proposta_evento}>
+                  <td>
+                    <strong>{evento.nome_evento}</strong>
+                    <small>{evento.tipo_organizador === "instituicao" ? "Instituição/ONG" : evento.tipo_organizador}</small>
+                  </td>
+                  <td>
+                    <strong>{evento.nome_responsavel}</strong>
+                    <small>{evento.nome_organizacao || evento.autor || "Não informado"}</small>
+                    <small>{evento.email} · {evento.telefone}</small>
+                  </td>
+                  <td>
+                    {evento.cidade}/{evento.estado}
+                    <small>{dataFormatada(evento.data_evento)} às {String(evento.horario_evento || "").slice(0, 5)}</small>
+                    <small>{evento.endereco}</small>
+                  </td>
+                  <td>
+                    {evento.proposta}
+                    <small>Alimentos: {evento.alimentos}</small>
+                    <small>Público estimado: {evento.publico_estimado}</small>
+                    {evento.justificativa && <small>Justificativa: {evento.justificativa}</small>}
+                  </td>
+                  <td>
+                    <span className={evento.status === "recusada" ? "admin-status admin-inativa" : "admin-status"}>
+                      {nomesStatusEvento[evento.status] || evento.status}
+                    </span>
+                    {evento.analista && <small>Analisada por {evento.analista}</small>}
+                  </td>
+                  <td>
+                    {evento.status === "pendente" ? (
+                      <div className="admin-acoes">
+                        <button
+                          className="admin-secundario"
+                          disabled={salvando || carregando}
+                          onClick={() => analisarEvento(evento, "aprovada")}
+                        >
+                          Aprovar
+                        </button>
+                        <button
+                          className="admin-alterar"
+                          disabled={salvando || carregando}
+                          onClick={() => analisarEvento(evento, "recusada")}
+                        >
+                          Recusar
+                        </button>
+                      </div>
+                    ) : (
+                      <small>Proposta já analisada.</small>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {!carregando && !eventos.length && (
+          <p className="admin-vazio">Nenhuma proposta de evento recebida.</p>
         )}
       </section>
 
