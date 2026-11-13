@@ -1,9 +1,9 @@
 
-import { Link } from "react-router-dom";
+import { NavLink as Link } from "react-router-dom";
 
 import "./Sidebar.css";
 
-function Sidebar() {
+function Sidebar({ administrador }) {
 
 
   
@@ -28,7 +28,7 @@ function Sidebar() {
 
   <Link to="/atividades">
     <img src="/assets/images/icons/ativi.png" alt="" />
-    Minhas Atividades
+    Atividades
   </Link>
 
   <Link to="/doacoes">
@@ -40,6 +40,11 @@ function Sidebar() {
     <img src="/assets/images/icons/perfil.png" alt="" />
     Perfil
   </Link>
+
+  {administrador && <Link to="/admin">
+    <img src="/assets/images/icons/config.png" alt="" />
+    Admin
+  </Link>}
 
 
  

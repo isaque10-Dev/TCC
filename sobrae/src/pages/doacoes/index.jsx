@@ -1,12 +1,26 @@
 
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import api, { API_URL, mensagemDaApi } from "../services/api";
 import "./index.css";
 
 export default function Doacoes() {
 
-    const [categoria, setCategoria] = useState("Todos");
-    const [busca, setBusca] = useState("");
+    const [parametros, setParametros] = useSearchParams();
+    const categoria = parametros.get("categoria") || "Todos";
+    const busca = parametros.get("busca") || "";
+    function setBusca(valor) {
+        setParametros((atuais) => {
+            if (valor) atuais.set("busca", valor); else atuais.delete("busca");
+            return atuais;
+        }, { replace: true });
+    }
+    function setCategoria(valor) {
+        setParametros((atuais) => {
+            if (valor !== "Todos") atuais.set("categoria", valor); else atuais.delete("categoria");
+            return atuais;
+        });
+    }
 
     const [abrir, setAbrir] = useState(false);
     const [reserva, setReserva] = useState(null);
@@ -27,55 +41,39 @@ export default function Doacoes() {
 
     const navigate = useNavigate();
 
-    const api = "http://127.0.0.1:50100";
-
-
     // CARREGAR AS DOACOES DO MYSQL
 
-    async function carregarDoacoes() {
+    const carregarDoacoes = useCallback(async (signal) => {
+        setCarregando(true);
         try {
-            const resposta = await fetch(api + "/doacoes?limite=100");
-
-            if (resposta.ok === false) {
-                throw new Error("Erro ao buscar doações");
-            }
-
-            const dados = await resposta.json();
+            const resposta = await api.get("/doacoes", { params: { limite: 100, busca: busca.trim(), categoria }, signal });
+            const dados = resposta.data;
 
             setDoacoes(dados);
             setErro("");
 
         } catch (error) {
+            if (signal?.aborted) return;
             console.log(error);
             setErro("Não foi possível carregar as doações.");
 
         }
 
-        setCarregando(false);
-    }
+        if (!signal?.aborted) setCarregando(false);
+    }, [busca, categoria]);
 
 
 
     async function carregarSolicitacoes() {
 
-        const token = localStorage.getItem("sobraeToken");
-
-        if (!token) {
+        if (!localStorage.getItem("sobraeToken")) {
             setSolicitadas([]);
             return;
         }
 
         try {
-            const resposta = await fetch(api + "/solicitacoes?limite=100", {
-                headers: {
-                    Authorization: "Bearer " + token
-                }
-            });
-
-            if (resposta.ok === true) {
-                const dados = await resposta.json();
-                setSolicitadas(dados);
-            }
+            const resposta = await api.get("/solicitacoes?limite=100");
+            setSolicitadas(resposta.data);
 
         } catch (error) {
             console.log(error);
@@ -84,7 +82,12 @@ export default function Doacoes() {
 
 
     useEffect(() => {
-        carregarDoacoes();
+        const controle = new AbortController();
+        const espera = setTimeout(() => carregarDoacoes(controle.signal), 250);
+        return () => { clearTimeout(espera); controle.abort(); };
+    }, [carregarDoacoes]);
+
+    useEffect(() => {
         carregarSolicitacoes();
     }, []);
 
@@ -138,9 +141,7 @@ export default function Doacoes() {
 
         e.preventDefault();
 
-        const token = localStorage.getItem("sobraeToken");
-
-        if (!token) {
+        if (!localStorage.getItem("sobraeToken")) {
             alert("Faça login para publicar uma doação.");
             navigate("/login");
             return;
@@ -148,35 +149,28 @@ export default function Doacoes() {
 
         const formulario = new FormData(e.currentTarget);
 
-        const novaDoacao = {
-            nome: formulario.get("nome"),
-            categoria: formulario.get("categoria"),
-            quantidade: formulario.get("quantidade"),
-            validade: formulario.get("validade"),
-            retirada: formulario.get("retirada")
-        };
+        const imagem = formulario.get("imagem");
+
+        if (imagem && imagem.size > 0 && imagem.size > 5 * 1024 * 1024) {
+            setErroModal("A imagem deve ter no máximo 5 MB.");
+            return;
+        }
+
+        if (imagem && imagem.size > 0 && !["image/png", "image/jpeg", "image/webp"].includes(imagem.type)) {
+            setErroModal("Escolha uma imagem PNG, JPG ou WEBP.");
+            return;
+        }
+
+        if (!imagem || imagem.size === 0) {
+            formulario.delete("imagem");
+        }
 
         setEnviando(true);
         setErroModal("");
 
         try {
 
-            const resposta = await fetch(api + "/doacoes", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: "Bearer " + token
-                },
-                body: JSON.stringify(novaDoacao)
-            });
-
-            const resultado = await resposta.json();
-
-            if (resposta.ok === false) {
-                setErroModal(resultado.erro);
-                setEnviando(false);
-                return;
-            }
+            await api.post("/doacoes", formulario);
 
             setAbrir(false);
 
@@ -186,7 +180,7 @@ export default function Doacoes() {
 
         } catch (error) {
             console.log(error);
-            setErroModal("Não foi possível conectar com a API.");
+            setErroModal(mensagemDaApi(error, "Não foi possível conectar com a API."));
         }
 
         setEnviando(false);
@@ -196,9 +190,7 @@ export default function Doacoes() {
 
     function abrirReserva(doacao) {
 
-        const token = localStorage.getItem("sobraeToken");
-
-        if (!token) {
+        if (!localStorage.getItem("sobraeToken")) {
             alert("Faça login para solicitar uma doação.");
             navigate("/login");
             return;
@@ -212,9 +204,7 @@ export default function Doacoes() {
 
     async function confirmarReserva() {
 
-        const token = localStorage.getItem("sobraeToken");
-
-        if (!token) {
+        if (!localStorage.getItem("sobraeToken")) {
             navigate("/login");
             return;
         }
@@ -224,23 +214,7 @@ export default function Doacoes() {
 
         try {
 
-            const resposta = await fetch(
-                api + "/doacoes/" + reserva.id_doacao + "/solicitacoes",
-                {
-                    method: "POST",
-                    headers: {
-                        Authorization: "Bearer " + token
-                    }
-                }
-            );
-
-            const resultado = await resposta.json();
-
-            if (resposta.ok === false) {
-                setErroReserva(resultado.erro);
-                setEnviando(false);
-                return;
-            }
+            await api.post("/doacoes/" + reserva.id_doacao + "/solicitacoes");
 
             await carregarSolicitacoes();
             await carregarDoacoes();
@@ -251,7 +225,7 @@ export default function Doacoes() {
 
         } catch (error) {
             console.log(error);
-            setErroReserva("Não foi possível enviar a solicitação.");
+            setErroReserva(mensagemDaApi(error, "Não foi possível enviar a solicitação."));
         }
 
         setEnviando(false);
@@ -259,7 +233,7 @@ export default function Doacoes() {
 
 
 
-    function imagemDoacao(tipo) {
+    function imagemPadrao(tipo) {
 
         if (tipo === "Frutas e verduras") {
             return "/assets/images/frutas.png";
@@ -274,6 +248,18 @@ export default function Doacoes() {
         }
 
         return "/assets/images/alimentos.png";
+    }
+
+    function imagemDoacao(doacao) {
+        if (!doacao.imagem) {
+            return imagemPadrao(doacao.categoria);
+        }
+
+        if (doacao.imagem.startsWith("http")) {
+            return doacao.imagem;
+        }
+
+        return API_URL + doacao.imagem;
     }
 
 
@@ -1051,8 +1037,11 @@ export default function Doacoes() {
                             >
 
                                 <img
-                                    src={imagemDoacao(doacao.categoria)}
+                                    src={imagemDoacao(doacao)}
                                     alt={doacao.nome}
+                                    onError={(e) => {
+                                        e.currentTarget.src = imagemPadrao(doacao.categoria);
+                                    }}
                                 />
 
                                 <div className="dados">

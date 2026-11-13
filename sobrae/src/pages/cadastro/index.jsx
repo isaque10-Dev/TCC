@@ -1,6 +1,7 @@
 
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import api, { mensagemDaApi } from "../services/api";
 import "./index.css";
 
 export default function Cadastro() {
@@ -31,28 +32,16 @@ export default function Cadastro() {
         }
 
         try {
-            const resposta = await fetch("http://127.0.0.1:50100/auth/cadastro", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(dados)
-            });
-
-            const resultado = await resposta.json();
-
-            if (resposta.ok === false) {
-                setErro(resultado.erro);
-                return;
-            }
+            const resposta = await api.post("/auth/cadastro", dados);
+            const resultado = resposta.data;
 
             localStorage.setItem("sobraeToken", resultado.token);
             localStorage.setItem("sobraeUsuario", JSON.stringify(resultado.usuario));
 
-            navigate("/");
+            navigate("/app");
 
         } catch (error) {
-            setErro("Não foi possível conectar com a API.");
+            setErro(mensagemDaApi(error, "Não foi possível conectar com a API."));
             console.log(error);
         }
     }

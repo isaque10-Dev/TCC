@@ -7,12 +7,33 @@
 .perfil h1 {
   color: #064735;
   font-size: 36px;
-  margin: 0 0 22px;
+  margin: 0 0 8px;
+}
+
+.perfil > p {
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+.perfil-erro {
+  color: #b00020;
+}
+.perfil button {
+  font-family: inherit;
+  cursor: pointer;
+}
+.perfil button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.perfil button:focus-visible,
+.perfil a:focus-visible {
+  outline: 2px solid #16835b;
+  outline-offset: 3px;
 }
 
 .perfil-conteudo {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 20px;
   align-items: start;
 }
@@ -24,8 +45,9 @@
 }
 
 .perfil-usuario {
-  min-height: 240px;
+  min-height: 190px;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 20px;
   padding: 25px;
@@ -35,8 +57,8 @@
 }
 
 .perfil-foto {
-  width: 125px;
-  height: 125px;
+  width: 90px;
+  height: 90px;
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -49,7 +71,7 @@
 }
 
 .perfil-dados {
-  min-width: 0;
+  min-width: 150px;
   flex: 1;
 }
 
@@ -87,6 +109,7 @@
   color: #064735;
   background: transparent;
   cursor: pointer;
+  min-height: 44px;
 }
 
 .perfil-editar:hover {
@@ -94,20 +117,31 @@
 }
 
 .perfil-impacto {
-  min-height: 240px;
+  min-height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 20px;
   padding: 25px;
-  background: #78a58c;
+  background: #d9ebde;
   border-radius: 18px;
 }
 
 .perfil-impacto h3 {
   margin: 0 0 15px;
-  text-align: center;
-  font-size: 23px;
+  text-align: left;
+  font-size: 18px;
+}
+
+.perfil-impacto > svg {
+  flex-shrink: 0;
+}
+.perfil-impacto small {
+  display: block;
+  max-width: 260px;
+  margin-top: 8px;
+  color: #416b5c;
+  line-height: 1.5;
 }
 
 .perfil-impacto strong {
@@ -135,6 +169,11 @@
 }
 
 .perfil-item {
+  width: 100%;
+  border: 0;
+  background: transparent;
+  text-align: left;
+  font: inherit;
   min-height: 95px;
   display: flex;
   align-items: center;
@@ -186,15 +225,20 @@
 }
 
 .perfil-sair {
+  width: 100%;
+  padding: 12px 16px;
+  background: #fff4f1;
+  font-size: 15px;
+  font-weight: 600;
   min-height: 53px;
-  margin-top: 10px;
+  margin-top: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   border: 1px solid #ff5262;
   border-radius: 10px;
-  color: #d83b4d;
+  color: #a82040;
   text-decoration: none;
 }
 
@@ -297,6 +341,7 @@
 @media (max-width: 650px) {
   .perfil-usuario {
     flex-wrap: wrap;
+    padding: 20px;
   }
 
   .perfil-foto {
@@ -305,11 +350,13 @@
   }
 
   .perfil-editar {
-    margin-left: auto;
+    width: 100%;
+    justify-content: center;
   }
 
   .perfil-impacto {
     flex-wrap: wrap;
+    justify-content: flex-start;
   }
 
   .perfil-impacto strong {

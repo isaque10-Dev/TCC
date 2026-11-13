@@ -1,9 +1,21 @@
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import "./Header.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import api, { mensagemDaApi } from "../../pages/services/api";
 
 function Header() {
+
+const navigate = useNavigate();
+const [parametros] = useSearchParams();
+const buscaAtual = parametros.get("busca") || "";
+const [pesquisa, setPesquisa] = useState(buscaAtual);
+useEffect(() => { setPesquisa(buscaAtual); }, [buscaAtual]);
+
+function pesquisar(e) {
+  e.preventDefault();
+  navigate("/doacoes" + (pesquisa.trim() ? "?busca=" + encodeURIComponent(pesquisa.trim()) : ""));
+}
 
 
 
@@ -19,17 +31,26 @@ const [abrirAvisos, setAbrirAvisos] = useState(false);
 const [avisos, setAvisos] = useState([]);
 
 function mostrarAvisos() {
-  const salvos = JSON.parse(
-    localStorage.getItem("avisosSobrae") || "[]"
-  );
-
-  setAvisos(salvos);
-  setAbrirAvisos(true);
+  api.get("/notificacoes?limite=100")
+    .then(async (resposta) => {
+      setAvisos(resposta.data);
+      setAbrirAvisos(true);
+      await Promise.all(resposta.data.filter((aviso) => !aviso.lida).map((aviso) => api.patch("/notificacoes/" + aviso.id_notificacao + "/lida")));
+    })
+    .catch((error) => alert(mensagemDaApi(error, "Não foi possível carregar as notificações.")));
 }
 
 function limparAvisos() {
-  localStorage.removeItem("avisosSobrae");
-  setAvisos([]);
+  api.delete("/notificacoes")
+    .then(() => setAvisos([]))
+    .catch((error) => alert(mensagemDaApi(error, "Não foi possível limpar as notificações.")));
+}
+
+async function sair() {
+  try { await api.post("/auth/logout"); } catch (error) { console.log(error); }
+  localStorage.removeItem("sobraeToken");
+  localStorage.removeItem("sobraeUsuario");
+  navigate("/login");
 }
 
 let janelaAvisos = null;
@@ -56,10 +77,10 @@ if (abrirAvisos === true) {
           <p>Você não tem notificações no momento.</p>
         ) : (
           <div className="notificacoes-lista">
-            {avisos.map((aviso, i) => (
-              <div className="notificacao" key={i}>
-                <img src="./assets/images/icon/notific2" alt="" />
-                <p>{aviso}</p>
+            {avisos.map((aviso) => (
+              <div className="notificacao" key={aviso.id_notificacao}>
+                <img src="/assets/images/icons/notific2.png" alt="" />
+                <p>{aviso.mensagem}</p>
               </div>
             ))}
           </div>
@@ -140,7 +161,7 @@ onChange={(e) => setDistancia(e.target.value)}
           </button>
         </div>
 
-        <button type="button" className="sair" disabled>
+        <button type="button" className="sair" onClick={sair}>
           Sair da conta
         </button>
 
@@ -168,8 +189,6 @@ function compartilharWhatsApp() {
   );
 }
 function compartilharInstagram(){
-  const mensagem = "Conheça o Sobraê e ajude a combater o desperdício!" + Link
-
   window.open(
     "https://www.instagram.com/"
   )
@@ -226,7 +245,7 @@ if (abrirCompartilhar === true) {
             <div>
               <h3>Compartilhe alimentos</h3>
               <p>Conheça as doações do Sobraê</p>
-             <button className="botaodoa" onClick={()=> setAbrirCompartilhar(false)}> <Link to="./doacoes"><span> Doações disponiveis</span></Link></button>
+             <Link className="botaodoa" to="/doacoes" onClick={() => setAbrirCompartilhar(false)}>Doações disponíveis</Link>
             </div>
           </div>
 
@@ -286,16 +305,20 @@ if (abrirCompartilhar === true) {
 
   return (
     <header className="header">
-      <div className="header-pesquisa">
+      <form className="header-pesquisa" role="search" onSubmit={pesquisar}>
         <img
           src="/assets/images/icons/pesquisa.png"
           alt=""
         />
         <input
-          type="text"
-          placeholder="Buscar por doações, alimentos, empresas, instituições..."
+          type="search"
+          aria-label="Buscar doações por alimento ou doador"
+          placeholder="Buscar alimento ou doador..."
+          value={pesquisa}
+          onChange={(e) => setPesquisa(e.target.value)}
         />
-      </div>
+        <button type="submit" className="header-buscar">Buscar</button>
+      </form>
 
 
       <div className="header-direita">
@@ -339,12 +362,12 @@ if (abrirCompartilhar === true) {
 </button>
 
 
-<Link to="/" className="entrar-login">
+<Link to="/perfil" className="entrar-login">
   <img src="/assets/images/icons/perfil2.png" alt="" />
 
   <div>
-    <strong>Entrar</strong>
-    <p>Criar ou acessar conta</p>
+    <strong>Minha conta</strong>
+    <p>Ver perfil</p>
   </div>
 </Link>
        

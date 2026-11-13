@@ -1,5 +1,5 @@
 
-import { Outlet } from "react-router-dom";
+import { Outlet, useOutletContext } from "react-router-dom";
 
 import Sidebar from "../Sidebar/Sidebar";
 import Header from "../Header/Header";
@@ -7,15 +7,16 @@ import Header from "../Header/Header";
 import "../../pages/app/App.css";
 
 function Layout() {
+  const usuario = useOutletContext();
   return (
     <div className="app-layout">
-      <Sidebar />
+      <Sidebar administrador={usuario.administrador} />
 
       <div className="app-principal">
         <Header />
 
         <main className="app-conteudo">
-          <Outlet />
+          <Outlet context={usuario} />
         </main>
       </div>
     </div>

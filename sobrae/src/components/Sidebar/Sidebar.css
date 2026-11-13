@@ -1,4 +1,3 @@
-
 .sidebar {
   position: sticky;
   top: 0;
@@ -11,7 +10,6 @@
   display: flex;
   flex-direction: column;
 }
-
 
 .sidebar-logo {
   margin-bottom: 35px;
@@ -58,16 +56,16 @@
   }
 }
 
-span{color: #C43257;}
- h1 {
-  font-family: 'Nunito', sans-serif;
+.sidebar-logo span {
+  color: #c43257;
+}
+h1 {
+  font-family: "Nunito", sans-serif;
   font-size: 34px;
   font-weight: 800;
-
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
-
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap");
 
 .sidebar-logo {
   display: flex;
@@ -83,11 +81,10 @@ span{color: #C43257;}
   object-fit: contain;
   flex-shrink: 0;
 }
- p {
+p {
   font-size: 13px;
   margin: 5px 0 0;
 }
-
 
 .sidebar-menu a {
   display: flex;
@@ -105,5 +102,3 @@ span{color: #C43257;}
   border-left: 4px solid #8fdb91;
   border-radius: 10px;
 }
-
-

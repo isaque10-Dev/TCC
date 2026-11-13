@@ -1,6 +1,7 @@
 
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import api, { mensagemDaApi } from "../services/api";
 import "./Login.css";
 
 
@@ -8,8 +9,6 @@ import "./Login.css";
 
 
 
-//teste2@example.com
-//Teste12345
 
 
 
@@ -20,6 +19,8 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [erro, setErro] = useState("");
+    const [enviando, setEnviando] = useState(false);
+    const location = useLocation();
 
     const navigate = useNavigate();
 
@@ -27,6 +28,8 @@ export default function Login() {
         e.preventDefault();
 
         setErro("");
+        if (enviando) return;
+        setEnviando(true);
 
         const dados = {
             email: email,
@@ -34,29 +37,20 @@ export default function Login() {
         };
 
         try {
-            const resposta = await fetch("http://127.0.0.1:50100/auth/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(dados)
-            });
-
-            const resultado = await resposta.json();
-
-            if (resposta.ok === false) {
-                setErro(resultado.erro);
-                return;
-            }
+            const resposta = await api.post("/auth/login", dados);
+            const resultado = resposta.data;
 
             localStorage.setItem("sobraeToken", resultado.token);
             localStorage.setItem("sobraeUsuario", JSON.stringify(resultado.usuario));
 
-            navigate("/app");
+            const destino = location.state?.destino;
+            navigate(destino?.startsWith("/") && !destino.startsWith("//") ? destino : "/app", { replace: true });
 
         } catch (error) {
-            setErro("Não foi possível conectar com a API.");
+            setErro(mensagemDaApi(error, "Não foi possível conectar com a API."));
             console.log(error);
+        } finally {
+            setEnviando(false);
         }
     }
 
@@ -91,20 +85,24 @@ export default function Login() {
 
                     <form onSubmit={entrar}>
 
-                        <label>E-mail</label>
+                        <label htmlFor="login-email">E-mail</label>
 
                         <input
                             type="email"
+                            id="login-email"
+                            autoComplete="username"
                             placeholder="Digite seu e-mail"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
 
-                        <label>Senha</label>
+                        <label htmlFor="login-senha">Senha</label>
 
                         <input
                             type="password"
+                            id="login-senha"
+                            autoComplete="current-password"
                             placeholder="Digite sua senha"
                             value={senha}
                             onChange={(e) => setSenha(e.target.value)}
@@ -115,7 +113,7 @@ export default function Login() {
 
                         {mensagemErro}
 
-                        <button type="submit">Entrar</button>
+                        <button type="submit" disabled={enviando}>{enviando ? "Entrando..." : "Entrar"}</button>
 
                     </form>
 
